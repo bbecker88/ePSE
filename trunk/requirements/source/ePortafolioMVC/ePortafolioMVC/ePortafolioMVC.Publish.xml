@@ -1,87 +1,139 @@
 <publishData>
+  <publishTarget publishUrl="C:\Users\ZarathoS\Desktop\Published\">
+    <file relUrl="Scripts/jquery.validate.min.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/images/img01.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Content/images/img04.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Content/images/img12.jpg" publishTime="10/09/2010 00:36:12" />
+    <file relUrl="Scripts/jquery.validate.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Views/Student/Details.aspx" publishTime="10/20/2010 16:08:10" />
+    <file relUrl="Views/Login/Index.aspx" publishTime="10/14/2010 18:20:54" />
+    <file relUrl="Views/Student/Index.aspx" publishTime="10/20/2010 16:07:56" />
+    <file relUrl="Content/images/img02.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="bin/ePortafolioMVC.pdb" publishTime="10/20/2010 12:50:20" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Views/Professor/Edit.aspx" publishTime="10/19/2010 20:06:15" />
+    <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/images/img11.jpg" publishTime="10/09/2010 00:36:12" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Scripts/jquery.validate.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/images/imgGrupal.png" publishTime="10/09/2010 02:01:10" />
+    <file relUrl="Content/images/img03.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="bin/ePortafolioMVC.dll" publishTime="10/20/2010 12:50:20" />
+    <file relUrl="Content/images/imgGrupoLider.png" publishTime="10/10/2010 21:00:53" />
+    <file relUrl="Web.config" publishTime="10/13/2010 22:12:29" />
+    <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/images/imgIndividual.png" publishTime="10/09/2010 02:01:10" />
+    <file relUrl="Content/images/img06.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Scripts/MicrosoftAjax.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Views/Shared/Error.aspx" publishTime="10/08/2010 18:43:37" />
+    <file relUrl="Content/images/img10.jpg" publishTime="10/09/2010 00:36:12" />
+    <file relUrl="Views/Home/Index.aspx" publishTime="10/14/2010 18:18:23" />
+    <file relUrl="Scripts/jquery-1.4.1.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/images/img05.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Content/images/imgArchivoZIP.png" publishTime="10/14/2010 00:21:10" />
+    <file relUrl="Content/images/img07.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Content/images/img09.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Views/Web.config" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/Site.css" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Views/Shared/index.html" publishTime="10/09/2010 01:00:37" />
+    <file relUrl="Content/images/imgGrupoMiembro.png" publishTime="10/10/2010 21:01:09" />
+    <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/Vertebrate.css" publishTime="10/14/2010 03:14:02" />
+    <file relUrl="Views/Shared/Site.Master" publishTime="10/19/2010 19:54:09" />
+    <file relUrl="Content/images/img08.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Global.asax" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/images/imgEditarTrabajo.png" publishTime="10/09/2010 03:05:23" />
+    <file relUrl="Content/images/imgGrupoSin.png" publishTime="10/10/2010 21:00:38" />
+    <file relUrl="Views/Professor/Index.aspx" publishTime="10/19/2010 20:14:38" />
+  </publishTarget>
   <publishTarget publishUrl="C:\Users\ZarathoS\Desktop\Published3\">
     <file relUrl="Views/Shared/index.html" publishTime="10/09/2010 01:00:37" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/images/img09.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Controllers/ProfessorController.cs" publishTime="10/14/2010 18:56:38" />
     <file relUrl="Models/UserInfo.cs" publishTime="10/08/2010 20:38:37" />
     <file relUrl="Content/images/img04.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Content/images/img12.jpg" publishTime="10/09/2010 00:36:12" />
     <file relUrl="ePortafolioMVC.csproj.user" publishTime="10/15/2010 14:40:59" />
     <file relUrl="Models/UserAutentication.cs" publishTime="10/11/2010 15:37:08" />
-    <file relUrl="Views/Student/Details.aspx" publishTime="10/14/2010 15:49:15" />
+    <file relUrl="Global.asax" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Models/ePortafolioDB.dbml.layout" publishTime="10/14/2010 01:08:20" />
     <file relUrl="Properties/AssemblyInfo.cs" publishTime="10/08/2010 18:30:05" />
     <file relUrl="ViewModels/TrabajoViewModel.cs" publishTime="10/10/2010 18:49:37" />
-    <file relUrl="Views/Login/Index.aspx" publishTime="10/14/2010 18:20:54" />
-    <file relUrl="Views/Professor/Edit.aspx" publishTime="10/12/2010 12:01:31" />
+    <file relUrl="Views/Student/Index.aspx" publishTime="10/11/2010 16:21:58" />
     <file relUrl="Content/images/img02.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Content/images/img05.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/images/img10.jpg" publishTime="10/09/2010 00:36:12" />
+    <file relUrl="Views/Professor/Edit.aspx" publishTime="10/12/2010 12:01:31" />
+    <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Models/ePortafolioDB.designer.cs" publishTime="10/14/2010 01:08:20" />
-    <file relUrl="Scripts/jquery.validate.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Scripts/jquery.validate.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Content/images/imgGrupal.png" publishTime="10/09/2010 02:01:10" />
     <file relUrl="Helpers/DisposableHelper.cs" publishTime="10/11/2010 14:59:15" />
-    <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Content/images/img03.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="bin/ePortafolioMVC.dll" publishTime="10/17/2010 19:59:01" />
     <file relUrl="Content/images/imgGrupoLider.png" publishTime="10/10/2010 21:00:53" />
     <file relUrl="Content/images/img11.jpg" publishTime="10/09/2010 00:36:12" />
     <file relUrl="bin/ePortafolioMVC.pdb" publishTime="10/17/2010 19:59:01" />
-    <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="ViewModels/Classes/Valor.cs" publishTime="10/09/2010 13:38:46" />
-    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/images/imgIndividual.png" publishTime="10/09/2010 02:01:10" />
+    <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Views/Login/Index.aspx" publishTime="10/14/2010 18:20:54" />
     <file relUrl="Controllers/StudentController.cs" publishTime="10/14/2010 18:56:39" />
     <file relUrl="Content/images/img06.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Scripts/MicrosoftAjax.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Content/images/imgArchivoZIP.png" publishTime="10/14/2010 00:21:10" />
-    <file relUrl="ePortafolioMVC.csproj" publishTime="10/15/2010 14:38:20" />
+    <file relUrl="Content/images/img10.jpg" publishTime="10/09/2010 00:36:12" />
     <file relUrl="Views/Home/Index.aspx" publishTime="10/14/2010 18:18:23" />
-    <file relUrl="Scripts/jquery-1.4.1.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Web.config" publishTime="10/13/2010 22:12:29" />
+    <file relUrl="Scripts/jquery.validate.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/Vertebrate.css" publishTime="10/14/2010 03:14:02" />
     <file relUrl="Global.asax.cs" publishTime="10/08/2010 18:30:05" />
     <file relUrl="Controllers/HomeController.cs" publishTime="10/14/2010 18:56:39" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="ViewModels/GrupoTrabajoViewModel.cs" publishTime="10/14/2010 00:06:49" />
     <file relUrl="Content/images/img07.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Views/Web.config" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/images/img09.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/images/imgEditarTrabajo.png" publishTime="10/09/2010 03:05:23" />
-    <file relUrl="Views/Shared/Error.aspx" publishTime="10/08/2010 18:43:37" />
     <file relUrl="Content/Site.css" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Helpers/HtmlHelpers.cs" publishTime="10/11/2010 14:59:17" />
+    <file relUrl="Views/Web.config" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Views/Shared/Error.aspx" publishTime="10/08/2010 18:43:37" />
+    <file relUrl="ePortafolioMVC.csproj" publishTime="10/15/2010 14:38:20" />
+    <file relUrl="Views/Student/Details.aspx" publishTime="10/14/2010 15:49:15" />
     <file relUrl="Content/images/imgGrupoMiembro.png" publishTime="10/10/2010 21:01:09" />
-    <file relUrl="Content/images/img08.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Content/Vertebrate.css" publishTime="10/14/2010 03:14:02" />
+    <file relUrl="Web.config" publishTime="10/13/2010 22:12:29" />
+    <file relUrl="Helpers/HtmlHelpers.cs" publishTime="10/11/2010 14:59:17" />
     <file relUrl="Views/Shared/Site.Master" publishTime="10/19/2010 19:54:09" />
     <file relUrl="Models/ePortafolioDB.dbml" publishTime="10/14/2010 01:08:19" />
-    <file relUrl="Controllers/LoginController.cs" publishTime="10/14/2010 18:56:39" />
-    <file relUrl="Global.asax" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Views/Student/Index.aspx" publishTime="10/11/2010 16:21:58" />
     <file relUrl="Content/images/img01.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Content/images/imgEditarTrabajo.png" publishTime="10/09/2010 03:05:23" />
+    <file relUrl="Content/images/img08.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="Controllers/LoginController.cs" publishTime="10/14/2010 18:56:39" />
+    <file relUrl="Scripts/jquery-1.4.1.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/images/imgIndividual.png" publishTime="10/09/2010 02:01:10" />
     <file relUrl="Content/images/imgGrupoSin.png" publishTime="10/10/2010 21:00:38" />
+    <file relUrl="bin/ePortafolioMVC.dll" publishTime="10/17/2010 19:59:01" />
     <file relUrl="Views/Professor/Index.aspx" publishTime="10/11/2010 21:28:50" />
   </publishTarget>
   <publishTarget publishUrl="C:\Users\ZarathoS\Desktop\Published2\">
-    <file relUrl="Views/Shared/index.html" publishTime="10/09/2010 01:00:37" />
+    <file relUrl="Web.config" publishTime="10/13/2010 22:12:29" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/images/img10.jpg" publishTime="10/09/2010 00:36:12" />
     <file relUrl="Controllers/ProfessorController.cs" publishTime="10/14/2010 18:56:38" />
     <file relUrl="Models/UserInfo.cs" publishTime="10/08/2010 20:38:37" />
     <file relUrl="Content/images/img04.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Content/images/img12.jpg" publishTime="10/09/2010 00:36:12" />
     <file relUrl="ePortafolioMVC.csproj.user" publishTime="10/15/2010 14:38:20" />
     <file relUrl="Models/UserAutentication.cs" publishTime="10/11/2010 15:37:08" />
-    <file relUrl="Global.asax" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Views/Student/Details.aspx" publishTime="10/14/2010 15:49:15" />
     <file relUrl="Models/ePortafolioDB.dbml.layout" publishTime="10/14/2010 01:08:20" />
     <file relUrl="Properties/AssemblyInfo.cs" publishTime="10/08/2010 18:30:05" />
-    <file relUrl="ViewModels/TrabajoViewModel.cs" publishTime="10/10/2010 18:49:37" />
+    <file relUrl="Views/Shared/Error.aspx" publishTime="10/08/2010 18:43:37" />
     <file relUrl="Views/Student/Index.aspx" publishTime="10/11/2010 16:21:58" />
     <file relUrl="Content/images/img02.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="10/08/2010 18:30:04" />
@@ -94,7 +146,10 @@
     <file relUrl="Scripts/jquery.validate.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Content/images/imgGrupal.png" publishTime="10/09/2010 02:01:10" />
     <file relUrl="Helpers/DisposableHelper.cs" publishTime="10/11/2010 14:59:15" />
+    <file relUrl="ePortafolioMVC.csproj" publishTime="10/15/2010 14:38:20" />
+    <file relUrl="Content/images/imgIndividual.png" publishTime="10/09/2010 02:01:10" />
     <file relUrl="Content/images/img03.jpg" publishTime="10/09/2010 00:36:11" />
+    <file relUrl="bin/ePortafolioMVC.dll" publishTime="10/15/2010 14:38:48" />
     <file relUrl="Content/images/imgGrupoLider.png" publishTime="10/10/2010 21:00:53" />
     <file relUrl="Content/images/img11.jpg" publishTime="10/09/2010 00:36:12" />
     <file relUrl="bin/ePortafolioMVC.pdb" publishTime="10/15/2010 14:38:47" />
@@ -105,87 +160,32 @@
     <file relUrl="Content/images/img06.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Scripts/MicrosoftAjax.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Content/images/imgArchivoZIP.png" publishTime="10/14/2010 00:21:10" />
-    <file relUrl="Content/images/img10.jpg" publishTime="10/09/2010 00:36:12" />
+    <file relUrl="ViewModels/TrabajoViewModel.cs" publishTime="10/10/2010 18:49:37" />
     <file relUrl="Views/Home/Index.aspx" publishTime="10/14/2010 18:18:23" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/Vertebrate.css" publishTime="10/14/2010 03:14:02" />
     <file relUrl="Global.asax.cs" publishTime="10/08/2010 18:30:05" />
     <file relUrl="Controllers/HomeController.cs" publishTime="10/14/2010 18:56:39" />
-    <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="ViewModels/GrupoTrabajoViewModel.cs" publishTime="10/14/2010 00:06:49" />
     <file relUrl="Content/images/img07.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Content/images/img09.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/Site.css" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Views/Web.config" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Views/Shared/Error.aspx" publishTime="10/08/2010 18:43:37" />
-    <file relUrl="ePortafolioMVC.csproj" publishTime="10/15/2010 14:38:20" />
-    <file relUrl="Views/Student/Details.aspx" publishTime="10/14/2010 15:49:15" />
-    <file relUrl="Content/images/imgGrupoMiembro.png" publishTime="10/10/2010 21:01:09" />
-    <file relUrl="Web.config" publishTime="10/13/2010 22:12:29" />
-    <file relUrl="Helpers/HtmlHelpers.cs" publishTime="10/11/2010 14:59:17" />
-    <file relUrl="Views/Shared/Site.Master" publishTime="10/14/2010 18:19:09" />
-    <file relUrl="Models/ePortafolioDB.dbml" publishTime="10/14/2010 01:08:19" />
-    <file relUrl="Content/images/img01.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Content/images/imgEditarTrabajo.png" publishTime="10/09/2010 03:05:23" />
-    <file relUrl="Content/images/img08.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Controllers/LoginController.cs" publishTime="10/14/2010 18:56:39" />
-    <file relUrl="Scripts/jquery-1.4.1.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/images/imgIndividual.png" publishTime="10/09/2010 02:01:10" />
-    <file relUrl="Content/images/imgGrupoSin.png" publishTime="10/10/2010 21:00:38" />
-    <file relUrl="bin/ePortafolioMVC.dll" publishTime="10/15/2010 14:38:48" />
-    <file relUrl="Views/Professor/Index.aspx" publishTime="10/11/2010 21:28:50" />
-  </publishTarget>
-  <publishTarget publishUrl="C:\Users\ZarathoS\Desktop\Published\">
+    <file relUrl="Content/Site.css" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Views/Shared/index.html" publishTime="10/09/2010 01:00:37" />
-    <file relUrl="Scripts/jquery.validate.min.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/images/img04.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Content/images/img12.jpg" publishTime="10/09/2010 00:36:12" />
-    <file relUrl="Views/Shared/Error.aspx" publishTime="10/08/2010 18:43:37" />
-    <file relUrl="Views/Student/Index.aspx" publishTime="10/11/2010 16:21:58" />
-    <file relUrl="Content/images/img02.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="bin/ePortafolioMVC.pdb" publishTime="10/15/2010 14:38:47" />
-    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Views/Professor/Edit.aspx" publishTime="10/12/2010 12:01:31" />
-    <file relUrl="Content/images/img10.jpg" publishTime="10/09/2010 00:36:12" />
-    <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Scripts/jquery.validate.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/images/imgGrupal.png" publishTime="10/09/2010 02:01:10" />
-    <file relUrl="Content/images/imgIndividual.png" publishTime="10/09/2010 02:01:10" />
-    <file relUrl="Content/images/img03.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Content/images/imgGrupoLider.png" publishTime="10/10/2010 21:00:53" />
-    <file relUrl="Web.config" publishTime="10/13/2010 22:12:29" />
-    <file relUrl="Content/images/imgGrupoSin.png" publishTime="10/10/2010 21:00:38" />
-    <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Views/Login/Index.aspx" publishTime="10/14/2010 18:20:54" />
-    <file relUrl="Content/images/img06.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Scripts/MicrosoftAjax.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/images/imgArchivoZIP.png" publishTime="10/14/2010 00:21:10" />
-    <file relUrl="Content/images/img11.jpg" publishTime="10/09/2010 00:36:12" />
-    <file relUrl="Views/Home/Index.aspx" publishTime="10/14/2010 18:18:23" />
-    <file relUrl="Scripts/jquery-1.4.1.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/images/img05.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Content/Vertebrate.css" publishTime="10/14/2010 03:14:02" />
-    <file relUrl="Content/images/img07.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Content/images/img09.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Views/Web.config" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Content/Site.css" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Views/Student/Details.aspx" publishTime="10/14/2010 15:49:15" />
     <file relUrl="Content/images/imgGrupoMiembro.png" publishTime="10/10/2010 21:01:09" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="10/08/2010 18:30:04" />
-    <file relUrl="Scripts/jquery.validate.js" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Content/Vertebrate.css" publishTime="10/14/2010 03:14:02" />
     <file relUrl="Views/Shared/Site.Master" publishTime="10/14/2010 18:19:09" />
+    <file relUrl="Models/ePortafolioDB.dbml" publishTime="10/14/2010 01:08:19" />
+    <file relUrl="Helpers/HtmlHelpers.cs" publishTime="10/11/2010 14:59:17" />
     <file relUrl="Content/images/imgEditarTrabajo.png" publishTime="10/09/2010 03:05:23" />
     <file relUrl="Content/images/img08.jpg" publishTime="10/09/2010 00:36:11" />
     <file relUrl="Global.asax" publishTime="10/08/2010 18:30:04" />
+    <file relUrl="Scripts/jquery-1.4.1.min-vsdoc.js" publishTime="10/08/2010 18:30:04" />
     <file relUrl="Content/images/img01.jpg" publishTime="10/09/2010 00:36:11" />
-    <file relUrl="bin/ePortafolioMVC.dll" publishTime="10/15/2010 14:38:48" />
+    <file relUrl="Controllers/LoginController.cs" publishTime="10/14/2010 18:56:39" />
+    <file relUrl="Content/images/imgGrupoSin.png" publishTime="10/10/2010 21:00:38" />
     <file relUrl="Views/Professor/Index.aspx" publishTime="10/11/2010 21:28:50" />
   </publishTarget>
 </publishData>

@@ -109,11 +109,11 @@
                 <td>
                     <% if (alumno.EsLider)
                        {%>
-                    <img src="../../Content/images/imgGrupoLider.png" title="Lider de grupo" />
+                    <img src="<%=Url.Content("~/Content/images/imgGrupoLider.png")%>" title="Lider de grupo" />
                     <%}
                        else
                        {%>
-                    <img src="../../Content/images/imgGrupoMiembro.png" title="Miembo de grupo" />
+                    <img src="<%=Url.Content("~/Content/images/imgGrupoMiembro.png")%>" title="Miembo de grupo" />
                     <%}%>
                 </td>
                 <td>
