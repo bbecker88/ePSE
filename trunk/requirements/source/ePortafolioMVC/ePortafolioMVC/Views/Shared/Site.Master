@@ -1,0 +1,76 @@
+<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="ePortafolioMVC.Models" %>
+<%@ Import Namespace="ePortafolioMVC.Helpers" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+
+<link href="<%=Url.Content("~/Content/Vertebrate.css")%>" rel="stylesheet" type="text/css" />
+<head runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <script src="<%=Url.Content("~/Scripts/jquery-1.4.1.min.js")%>" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Scripts/MicrosoftAjax.js")%>" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Scripts/MicrosoftMvcAjax.js")%>" type="text/javascript"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <div id="logo">
+                <h1>
+                    <a href="#">e-Portafolio</a></h1>
+                <h2>
+                    <a href="#">Second Edition</a><br />
+                    <% if (Session["UserInfo"] != null)
+                       { //Si existe un usuario registrado: Log Out%>
+                    <%= Html.Encode(((UserInfo)Session["UserInfo"]).Nombre)%>
+                    <%} %>
+                </h2>
+            </div>
+            <ul id="navlist">
+                <li><a href="/" id="current">Inicio</a></li>
+                <% if (Session["UserInfo"] == null)
+                   { //Si no existe un usuario registrado: Log In%>
+                <li>
+                    <%= Html.ActionLink("Ingresar", "Index", "Login", null, null) %></li>
+                <%}%>
+                <% if (Session["UserInfo"] != null)
+                   { //Si existe un usuario registrado: Log Out%>
+                <% if (((UserInfo)Session["UserInfo"]).Rol == RolDescription.Profesor)
+                   { //Controles especificos del Rol: Profesor%>
+                <li>
+                    <%= Html.ActionLink("Trabajos", "Index", "Professor", new { }, null)%></li>
+                <%} //Fin de controles especificos del Rol: Profesor%>
+                
+                <% if (((UserInfo)Session["UserInfo"]).Rol == RolDescription.Estudiante)
+                   { //Controles especificos del Rol: Estudiante%>
+                <li>
+                    <%= Html.ActionLink("Trabajos", "Index", "Student", new { }, null)%></li>
+                <%} //Fin de controles especificos del Rol: Estudiante%>
+                
+                <li>
+                    <%= Html.ActionLink("Salir", "LogOut", "Login", new { }, null)%></li>
+                
+                <%}%>
+            </ul>
+        </div>
+        <div id="content-section">
+            <div id="main">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="footer-wrapper">
+        <div id="footer">
+            <p id="legal">
+                Copyright &copy; 2010 GO3 . Todos los derchos reservados. Diseñado por <a href="#">GO3</a>.</p>
+            <p id="links">
+                <a href="#">Manual del usuario</a> | <a href="#">Terminos</a></p>
+        </div>
+    </div>
+</body>
+</html>
