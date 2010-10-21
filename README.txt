@@ -24,7 +24,7 @@ Project Description:
 
 (Spanish)
 
-El proyecto consiste en la realizaci&oacute;n de la nueva versi�n del e-Portafolio, denominada e-Portafolio Second Edition (ePSE), creada en base a la los requerimientos actuales del �rea de Computaci�n. 
+El proyecto consiste en la realización de la nueva versi�n del e-Portafolio, denominada e-Portafolio Second Edition (ePSE), creada en base a la los requerimientos actuales del �rea de Computaci�n. 
 El producto software poseer� las siguientes caracter�sticas de soporte:
 
 Portafolio de Aprendizaje
