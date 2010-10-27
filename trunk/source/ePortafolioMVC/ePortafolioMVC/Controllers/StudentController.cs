@@ -153,11 +153,15 @@ namespace ePortafolioMVC.Controllers
             var TrabajoId = id;
             //Obtiene el ID del estudiante registrado
             var EstudianteId = ((UserInfo)Session["UserInfo"]).Codigo;
-
+            //Obtiene el trabajo actual
             var Trabajo = ePortafolioDAO.Trabajos.SingleOrDefault(t => t.TrabajoId == TrabajoId);
+            //Crea el grupo a insertar
             var GrupoInsertar = new Grupo() { TrabajoId = TrabajoId };
+            //Agrega el estudiante actual como lider
             GrupoInsertar.AlumnosGrupos.Add(new AlumnosGrupo { AlumnoId = EstudianteId, EsLider = true });
+            //Marca GrupoInsertar para agregar
             Trabajo.Grupos.Add(GrupoInsertar);
+            //Agrega el GrupoInsertar
             ePortafolioDAO.SubmitChanges();
             //Redirecciona a la accion Details de Student con el ID del Trabajo
             return RedirectToAction("Details", new { id = TrabajoId });
@@ -169,8 +173,11 @@ namespace ePortafolioMVC.Controllers
         // Redirige a la accion de Details
         public ActionResult DeleteStudent(String GrupoId, String TrabajoId, String AlumnoId)
         {
+            //Obtiene el estudiante
             var Student = ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.AlumnoId.ToString() == AlumnoId && ag.GrupoId.ToString() == GrupoId);
+            //Marca el estudiante para ser eliminado
             ePortafolioDAO.AlumnosGrupos.DeleteOnSubmit(Student);
+            //Elimina el estudiante
             ePortafolioDAO.SubmitChanges();
             //Redirecciona a la accion Details de Student con el ID del Trabajo
             return RedirectToAction("Details", new { id = TrabajoId });
@@ -182,8 +189,11 @@ namespace ePortafolioMVC.Controllers
         // Redirige a la accion de Details
         public ActionResult MakeLeader(String GrupoId, String AlumnoId, String TrabajoId)
         {
+            //Obtiene el lider actual y le quita el liderato
             ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.GrupoId.ToString() == GrupoId && ag.EsLider == true).EsLider = false;
+            //Asigna el liderato al alumno actual
             ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.GrupoId.ToString() == GrupoId && ag.AlumnoId.ToString() == AlumnoId).EsLider = true;
+            //Guarda los cambios
             ePortafolioDAO.SubmitChanges();
             //Redirecciona a la accion Details de Student con el ID del Trabajo
             return RedirectToAction("Details", new { id = TrabajoId });
@@ -195,9 +205,11 @@ namespace ePortafolioMVC.Controllers
         // Redirige a la accion de Index
         public ActionResult WithdrawStudent(String GrupoId, String AlumnoId)
         {
+            //Busca y marca el estudiante para ser eliminado
             ePortafolioDAO.AlumnosGrupos.DeleteOnSubmit(ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.GrupoId.ToString() == GrupoId && ag.AlumnoId.ToString() == AlumnoId));
+            //Elimina el estudiante del grupo
             ePortafolioDAO.SubmitChanges();
-
+            //Redirecciona a la accion Index de Student
             return RedirectToAction("Index");
 
         }
@@ -212,12 +224,17 @@ namespace ePortafolioMVC.Controllers
             // TODO: Eliminar los archivos del disco y depurar la tabla de Archivos Eliminados
             //
 
+            //Marca los Archivos a ser eliminados
             ePortafolioDAO.Archivos.DeleteAllOnSubmit(ePortafolioDAO.Archivos.Where(a => ePortafolioDAO.ArchivosGrupos.Any(ag => ag.GrupoId.ToString() == GrupoId && ag.ArchivoId==a.ArchivoId)));
+            //Marca los ArchivosGrupos a ser eliminados
             ePortafolioDAO.ArchivosGrupos.DeleteAllOnSubmit(ePortafolioDAO.ArchivosGrupos.Where(ag => ag.GrupoId.ToString() == GrupoId));
+            //Marca los AlumnosGrupos a ser eliminados
             ePortafolioDAO.AlumnosGrupos.DeleteAllOnSubmit(ePortafolioDAO.AlumnosGrupos.Where(ag => ag.GrupoId.ToString() == GrupoId));
+            //Marca el Grupo a ser eliminados
             ePortafolioDAO.Grupos.DeleteOnSubmit(ePortafolioDAO.Grupos.SingleOrDefault(g => g.GrupoId.ToString() == GrupoId));
+            //Guarda los cambios
             ePortafolioDAO.SubmitChanges();
-
+            //Redirecciona a la accion Index de Student
             return RedirectToAction("Index");
         }
 
