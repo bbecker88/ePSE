@@ -30,9 +30,6 @@ namespace ePortafolioMVC.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertAlumno(Alumno instance);
-    partial void UpdateAlumno(Alumno instance);
-    partial void DeleteAlumno(Alumno instance);
     partial void InsertTrabajosResultadosPrograma(TrabajosResultadosPrograma instance);
     partial void UpdateTrabajosResultadosPrograma(TrabajosResultadosPrograma instance);
     partial void DeleteTrabajosResultadosPrograma(TrabajosResultadosPrograma instance);
@@ -48,21 +45,18 @@ namespace ePortafolioMVC.Models
     partial void InsertArchivosGrupo(ArchivosGrupo instance);
     partial void UpdateArchivosGrupo(ArchivosGrupo instance);
     partial void DeleteArchivosGrupo(ArchivosGrupo instance);
+    partial void InsertCriteriosRubrica(CriteriosRubrica instance);
+    partial void UpdateCriteriosRubrica(CriteriosRubrica instance);
+    partial void DeleteCriteriosRubrica(CriteriosRubrica instance);
     partial void InsertCurso(Curso instance);
     partial void UpdateCurso(Curso instance);
     partial void DeleteCurso(Curso instance);
-    partial void InsertGrupo(Grupo instance);
-    partial void UpdateGrupo(Grupo instance);
-    partial void DeleteGrupo(Grupo instance);
     partial void InsertProfesore(Profesore instance);
     partial void UpdateProfesore(Profesore instance);
     partial void DeleteProfesore(Profesore instance);
     partial void InsertResultadosPrograma(ResultadosPrograma instance);
     partial void UpdateResultadosPrograma(ResultadosPrograma instance);
     partial void DeleteResultadosPrograma(ResultadosPrograma instance);
-    partial void InsertReultadosRubricaGrupo(ReultadosRubricaGrupo instance);
-    partial void UpdateReultadosRubricaGrupo(ReultadosRubricaGrupo instance);
-    partial void DeleteReultadosRubricaGrupo(ReultadosRubricaGrupo instance);
     partial void InsertRubrica(Rubrica instance);
     partial void UpdateRubrica(Rubrica instance);
     partial void DeleteRubrica(Rubrica instance);
@@ -72,6 +66,15 @@ namespace ePortafolioMVC.Models
     partial void InsertTrabajo(Trabajo instance);
     partial void UpdateTrabajo(Trabajo instance);
     partial void DeleteTrabajo(Trabajo instance);
+    partial void InsertResultadosRubricaGrupo(ResultadosRubricaGrupo instance);
+    partial void UpdateResultadosRubricaGrupo(ResultadosRubricaGrupo instance);
+    partial void DeleteResultadosRubricaGrupo(ResultadosRubricaGrupo instance);
+    partial void InsertGrupo(Grupo instance);
+    partial void UpdateGrupo(Grupo instance);
+    partial void DeleteGrupo(Grupo instance);
+    partial void InsertAlumno(Alumno instance);
+    partial void UpdateAlumno(Alumno instance);
+    partial void DeleteAlumno(Alumno instance);
     #endregion
 		
 		public ePortafolioDBDataContext() : 
@@ -102,14 +105,6 @@ namespace ePortafolioMVC.Models
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<Alumno> Alumnos
-		{
-			get
-			{
-				return this.GetTable<Alumno>();
-			}
 		}
 		
 		public System.Data.Linq.Table<TrabajosResultadosPrograma> TrabajosResultadosProgramas
@@ -152,19 +147,19 @@ namespace ePortafolioMVC.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<CriteriosRubrica> CriteriosRubricas
+		{
+			get
+			{
+				return this.GetTable<CriteriosRubrica>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Curso> Cursos
 		{
 			get
 			{
 				return this.GetTable<Curso>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Grupo> Grupos
-		{
-			get
-			{
-				return this.GetTable<Grupo>();
 			}
 		}
 		
@@ -181,14 +176,6 @@ namespace ePortafolioMVC.Models
 			get
 			{
 				return this.GetTable<ResultadosPrograma>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ReultadosRubricaGrupo> ReultadosRubricaGrupos
-		{
-			get
-			{
-				return this.GetTable<ReultadosRubricaGrupo>();
 			}
 		}
 		
@@ -215,175 +202,29 @@ namespace ePortafolioMVC.Models
 				return this.GetTable<Trabajo>();
 			}
 		}
-	}
-	
-	[Table(Name="dbo.Alumnos")]
-	public partial class Alumno : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _AlumnoId;
-		
-		private string _Nombre;
-		
-		private EntitySet<AlumnosCurso> _AlumnosCursos;
-		
-		private EntitySet<AlumnosGrupo> _AlumnosGrupos;
-		
-		private EntitySet<Archivo> _Archivos;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnAlumnoIdChanging(string value);
-    partial void OnAlumnoIdChanged();
-    partial void OnNombreChanging(string value);
-    partial void OnNombreChanged();
-    #endregion
-		
-		public Alumno()
-		{
-			this._AlumnosCursos = new EntitySet<AlumnosCurso>(new Action<AlumnosCurso>(this.attach_AlumnosCursos), new Action<AlumnosCurso>(this.detach_AlumnosCursos));
-			this._AlumnosGrupos = new EntitySet<AlumnosGrupo>(new Action<AlumnosGrupo>(this.attach_AlumnosGrupos), new Action<AlumnosGrupo>(this.detach_AlumnosGrupos));
-			this._Archivos = new EntitySet<Archivo>(new Action<Archivo>(this.attach_Archivos), new Action<Archivo>(this.detach_Archivos));
-			OnCreated();
-		}
-		
-		[Column(Storage="_AlumnoId", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string AlumnoId
+		public System.Data.Linq.Table<ResultadosRubricaGrupo> ResultadosRubricaGrupos
 		{
 			get
 			{
-				return this._AlumnoId;
-			}
-			set
-			{
-				if ((this._AlumnoId != value))
-				{
-					this.OnAlumnoIdChanging(value);
-					this.SendPropertyChanging();
-					this._AlumnoId = value;
-					this.SendPropertyChanged("AlumnoId");
-					this.OnAlumnoIdChanged();
-				}
+				return this.GetTable<ResultadosRubricaGrupo>();
 			}
 		}
 		
-		[Column(Storage="_Nombre", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Nombre
+		public System.Data.Linq.Table<Grupo> Grupos
 		{
 			get
 			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this.OnNombreChanging(value);
-					this.SendPropertyChanging();
-					this._Nombre = value;
-					this.SendPropertyChanged("Nombre");
-					this.OnNombreChanged();
-				}
+				return this.GetTable<Grupo>();
 			}
 		}
 		
-		[Association(Name="Alumno_AlumnosCurso", Storage="_AlumnosCursos", ThisKey="AlumnoId", OtherKey="AlumnoId")]
-		public EntitySet<AlumnosCurso> AlumnosCursos
+		public System.Data.Linq.Table<Alumno> Alumnos
 		{
 			get
 			{
-				return this._AlumnosCursos;
+				return this.GetTable<Alumno>();
 			}
-			set
-			{
-				this._AlumnosCursos.Assign(value);
-			}
-		}
-		
-		[Association(Name="Alumno_AlumnosGrupo", Storage="_AlumnosGrupos", ThisKey="AlumnoId", OtherKey="AlumnoId")]
-		public EntitySet<AlumnosGrupo> AlumnosGrupos
-		{
-			get
-			{
-				return this._AlumnosGrupos;
-			}
-			set
-			{
-				this._AlumnosGrupos.Assign(value);
-			}
-		}
-		
-		[Association(Name="Alumno_Archivo", Storage="_Archivos", ThisKey="AlumnoId", OtherKey="AlumnoId")]
-		public EntitySet<Archivo> Archivos
-		{
-			get
-			{
-				return this._Archivos;
-			}
-			set
-			{
-				this._Archivos.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_AlumnosCursos(AlumnosCurso entity)
-		{
-			this.SendPropertyChanging();
-			entity.Alumno = this;
-		}
-		
-		private void detach_AlumnosCursos(AlumnosCurso entity)
-		{
-			this.SendPropertyChanging();
-			entity.Alumno = null;
-		}
-		
-		private void attach_AlumnosGrupos(AlumnosGrupo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Alumno = this;
-		}
-		
-		private void detach_AlumnosGrupos(AlumnosGrupo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Alumno = null;
-		}
-		
-		private void attach_Archivos(Archivo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Alumno = this;
-		}
-		
-		private void detach_Archivos(Archivo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Alumno = null;
 		}
 	}
 	
@@ -565,9 +406,9 @@ namespace ePortafolioMVC.Models
 		
 		private string _CursoId;
 		
-		private EntityRef<Alumno> _Alumno;
-		
 		private EntityRef<Curso> _Curso;
+		
+		private EntityRef<Alumno> _Alumno;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -581,8 +422,8 @@ namespace ePortafolioMVC.Models
 		
 		public AlumnosCurso()
 		{
-			this._Alumno = default(EntityRef<Alumno>);
 			this._Curso = default(EntityRef<Curso>);
+			this._Alumno = default(EntityRef<Alumno>);
 			OnCreated();
 		}
 		
@@ -634,40 +475,6 @@ namespace ePortafolioMVC.Models
 			}
 		}
 		
-		[Association(Name="Alumno_AlumnosCurso", Storage="_Alumno", ThisKey="AlumnoId", OtherKey="AlumnoId", IsForeignKey=true)]
-		public Alumno Alumno
-		{
-			get
-			{
-				return this._Alumno.Entity;
-			}
-			set
-			{
-				Alumno previousValue = this._Alumno.Entity;
-				if (((previousValue != value) 
-							|| (this._Alumno.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Alumno.Entity = null;
-						previousValue.AlumnosCursos.Remove(this);
-					}
-					this._Alumno.Entity = value;
-					if ((value != null))
-					{
-						value.AlumnosCursos.Add(this);
-						this._AlumnoId = value.AlumnoId;
-					}
-					else
-					{
-						this._AlumnoId = default(string);
-					}
-					this.SendPropertyChanged("Alumno");
-				}
-			}
-		}
-		
 		[Association(Name="Curso_AlumnosCurso", Storage="_Curso", ThisKey="CursoId", OtherKey="CursoId", IsForeignKey=true)]
 		public Curso Curso
 		{
@@ -698,6 +505,40 @@ namespace ePortafolioMVC.Models
 						this._CursoId = default(string);
 					}
 					this.SendPropertyChanged("Curso");
+				}
+			}
+		}
+		
+		[Association(Name="Alumno_AlumnosCurso", Storage="_Alumno", ThisKey="AlumnoId", OtherKey="AlumnoId", IsForeignKey=true)]
+		public Alumno Alumno
+		{
+			get
+			{
+				return this._Alumno.Entity;
+			}
+			set
+			{
+				Alumno previousValue = this._Alumno.Entity;
+				if (((previousValue != value) 
+							|| (this._Alumno.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Alumno.Entity = null;
+						previousValue.AlumnosCursos.Remove(this);
+					}
+					this._Alumno.Entity = value;
+					if ((value != null))
+					{
+						value.AlumnosCursos.Add(this);
+						this._AlumnoId = value.AlumnoId;
+					}
+					else
+					{
+						this._AlumnoId = default(string);
+					}
+					this.SendPropertyChanged("Alumno");
 				}
 			}
 		}
@@ -735,9 +576,9 @@ namespace ePortafolioMVC.Models
 		
 		private bool _EsLider;
 		
-		private EntityRef<Alumno> _Alumno;
-		
 		private EntityRef<Grupo> _Grupo;
+		
+		private EntityRef<Alumno> _Alumno;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -753,8 +594,8 @@ namespace ePortafolioMVC.Models
 		
 		public AlumnosGrupo()
 		{
-			this._Alumno = default(EntityRef<Alumno>);
 			this._Grupo = default(EntityRef<Grupo>);
+			this._Alumno = default(EntityRef<Alumno>);
 			OnCreated();
 		}
 		
@@ -826,40 +667,6 @@ namespace ePortafolioMVC.Models
 			}
 		}
 		
-		[Association(Name="Alumno_AlumnosGrupo", Storage="_Alumno", ThisKey="AlumnoId", OtherKey="AlumnoId", IsForeignKey=true)]
-		public Alumno Alumno
-		{
-			get
-			{
-				return this._Alumno.Entity;
-			}
-			set
-			{
-				Alumno previousValue = this._Alumno.Entity;
-				if (((previousValue != value) 
-							|| (this._Alumno.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Alumno.Entity = null;
-						previousValue.AlumnosGrupos.Remove(this);
-					}
-					this._Alumno.Entity = value;
-					if ((value != null))
-					{
-						value.AlumnosGrupos.Add(this);
-						this._AlumnoId = value.AlumnoId;
-					}
-					else
-					{
-						this._AlumnoId = default(string);
-					}
-					this.SendPropertyChanged("Alumno");
-				}
-			}
-		}
-		
 		[Association(Name="Grupo_AlumnosGrupo", Storage="_Grupo", ThisKey="GrupoId", OtherKey="GrupoId", IsForeignKey=true)]
 		public Grupo Grupo
 		{
@@ -890,6 +697,40 @@ namespace ePortafolioMVC.Models
 						this._GrupoId = default(int);
 					}
 					this.SendPropertyChanged("Grupo");
+				}
+			}
+		}
+		
+		[Association(Name="Alumno_AlumnosGrupo", Storage="_Alumno", ThisKey="AlumnoId", OtherKey="AlumnoId", IsForeignKey=true)]
+		public Alumno Alumno
+		{
+			get
+			{
+				return this._Alumno.Entity;
+			}
+			set
+			{
+				Alumno previousValue = this._Alumno.Entity;
+				if (((previousValue != value) 
+							|| (this._Alumno.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Alumno.Entity = null;
+						previousValue.AlumnosGrupos.Remove(this);
+					}
+					this._Alumno.Entity = value;
+					if ((value != null))
+					{
+						value.AlumnosGrupos.Add(this);
+						this._AlumnoId = value.AlumnoId;
+					}
+					else
+					{
+						this._AlumnoId = default(string);
+					}
+					this.SendPropertyChanged("Alumno");
 				}
 			}
 		}
@@ -1358,6 +1199,209 @@ namespace ePortafolioMVC.Models
 		}
 	}
 	
+	[Table(Name="dbo.CriteriosRubrica")]
+	public partial class CriteriosRubrica : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CriterioId;
+		
+		private int _RubricaId;
+		
+		private string _Nombre;
+		
+		private decimal _Valor;
+		
+		private EntitySet<ResultadosRubricaGrupo> _ResultadosRubricaGrupos;
+		
+		private EntityRef<Rubrica> _Rubrica;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCriterioIdChanging(int value);
+    partial void OnCriterioIdChanged();
+    partial void OnRubricaIdChanging(int value);
+    partial void OnRubricaIdChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnValorChanging(decimal value);
+    partial void OnValorChanged();
+    #endregion
+		
+		public CriteriosRubrica()
+		{
+			this._ResultadosRubricaGrupos = new EntitySet<ResultadosRubricaGrupo>(new Action<ResultadosRubricaGrupo>(this.attach_ResultadosRubricaGrupos), new Action<ResultadosRubricaGrupo>(this.detach_ResultadosRubricaGrupos));
+			this._Rubrica = default(EntityRef<Rubrica>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_CriterioId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int CriterioId
+		{
+			get
+			{
+				return this._CriterioId;
+			}
+			set
+			{
+				if ((this._CriterioId != value))
+				{
+					this.OnCriterioIdChanging(value);
+					this.SendPropertyChanging();
+					this._CriterioId = value;
+					this.SendPropertyChanged("CriterioId");
+					this.OnCriterioIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RubricaId", DbType="Int NOT NULL")]
+		public int RubricaId
+		{
+			get
+			{
+				return this._RubricaId;
+			}
+			set
+			{
+				if ((this._RubricaId != value))
+				{
+					if (this._Rubrica.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRubricaIdChanging(value);
+					this.SendPropertyChanging();
+					this._RubricaId = value;
+					this.SendPropertyChanged("RubricaId");
+					this.OnRubricaIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Nombre", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Valor", DbType="Money NOT NULL")]
+		public decimal Valor
+		{
+			get
+			{
+				return this._Valor;
+			}
+			set
+			{
+				if ((this._Valor != value))
+				{
+					this.OnValorChanging(value);
+					this.SendPropertyChanging();
+					this._Valor = value;
+					this.SendPropertyChanged("Valor");
+					this.OnValorChanged();
+				}
+			}
+		}
+		
+		[Association(Name="CriteriosRubrica_ResultadosRubricaGrupo", Storage="_ResultadosRubricaGrupos", ThisKey="CriterioId", OtherKey="CriterioId")]
+		public EntitySet<ResultadosRubricaGrupo> ResultadosRubricaGrupos
+		{
+			get
+			{
+				return this._ResultadosRubricaGrupos;
+			}
+			set
+			{
+				this._ResultadosRubricaGrupos.Assign(value);
+			}
+		}
+		
+		[Association(Name="Rubrica_CriteriosRubrica", Storage="_Rubrica", ThisKey="RubricaId", OtherKey="RubricaId", IsForeignKey=true)]
+		public Rubrica Rubrica
+		{
+			get
+			{
+				return this._Rubrica.Entity;
+			}
+			set
+			{
+				Rubrica previousValue = this._Rubrica.Entity;
+				if (((previousValue != value) 
+							|| (this._Rubrica.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Rubrica.Entity = null;
+						previousValue.CriteriosRubricas.Remove(this);
+					}
+					this._Rubrica.Entity = value;
+					if ((value != null))
+					{
+						value.CriteriosRubricas.Add(this);
+						this._RubricaId = value.RubricaId;
+					}
+					else
+					{
+						this._RubricaId = default(int);
+					}
+					this.SendPropertyChanged("Rubrica");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ResultadosRubricaGrupos(ResultadosRubricaGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.CriteriosRubrica = this;
+		}
+		
+		private void detach_ResultadosRubricaGrupos(ResultadosRubricaGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.CriteriosRubrica = null;
+		}
+	}
+	
 	[Table(Name="dbo.Cursos")]
 	public partial class Curso : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1562,217 +1606,6 @@ namespace ePortafolioMVC.Models
 		{
 			this.SendPropertyChanging();
 			entity.Curso = null;
-		}
-	}
-	
-	[Table(Name="dbo.Grupos")]
-	public partial class Grupo : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _GrupoId;
-		
-		private int _TrabajoId;
-		
-		private EntitySet<AlumnosGrupo> _AlumnosGrupos;
-		
-		private EntitySet<ArchivosGrupo> _ArchivosGrupos;
-		
-		private EntitySet<ReultadosRubricaGrupo> _ReultadosRubricaGrupos;
-		
-		private EntityRef<Trabajo> _Trabajo;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnGrupoIdChanging(int value);
-    partial void OnGrupoIdChanged();
-    partial void OnTrabajoIdChanging(int value);
-    partial void OnTrabajoIdChanged();
-    #endregion
-		
-		public Grupo()
-		{
-			this._AlumnosGrupos = new EntitySet<AlumnosGrupo>(new Action<AlumnosGrupo>(this.attach_AlumnosGrupos), new Action<AlumnosGrupo>(this.detach_AlumnosGrupos));
-			this._ArchivosGrupos = new EntitySet<ArchivosGrupo>(new Action<ArchivosGrupo>(this.attach_ArchivosGrupos), new Action<ArchivosGrupo>(this.detach_ArchivosGrupos));
-			this._ReultadosRubricaGrupos = new EntitySet<ReultadosRubricaGrupo>(new Action<ReultadosRubricaGrupo>(this.attach_ReultadosRubricaGrupos), new Action<ReultadosRubricaGrupo>(this.detach_ReultadosRubricaGrupos));
-			this._Trabajo = default(EntityRef<Trabajo>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_GrupoId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int GrupoId
-		{
-			get
-			{
-				return this._GrupoId;
-			}
-			set
-			{
-				if ((this._GrupoId != value))
-				{
-					this.OnGrupoIdChanging(value);
-					this.SendPropertyChanging();
-					this._GrupoId = value;
-					this.SendPropertyChanged("GrupoId");
-					this.OnGrupoIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_TrabajoId", DbType="Int NOT NULL")]
-		public int TrabajoId
-		{
-			get
-			{
-				return this._TrabajoId;
-			}
-			set
-			{
-				if ((this._TrabajoId != value))
-				{
-					if (this._Trabajo.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTrabajoIdChanging(value);
-					this.SendPropertyChanging();
-					this._TrabajoId = value;
-					this.SendPropertyChanged("TrabajoId");
-					this.OnTrabajoIdChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Grupo_AlumnosGrupo", Storage="_AlumnosGrupos", ThisKey="GrupoId", OtherKey="GrupoId")]
-		public EntitySet<AlumnosGrupo> AlumnosGrupos
-		{
-			get
-			{
-				return this._AlumnosGrupos;
-			}
-			set
-			{
-				this._AlumnosGrupos.Assign(value);
-			}
-		}
-		
-		[Association(Name="Grupo_ArchivosGrupo", Storage="_ArchivosGrupos", ThisKey="GrupoId", OtherKey="GrupoId")]
-		public EntitySet<ArchivosGrupo> ArchivosGrupos
-		{
-			get
-			{
-				return this._ArchivosGrupos;
-			}
-			set
-			{
-				this._ArchivosGrupos.Assign(value);
-			}
-		}
-		
-		[Association(Name="Grupo_ReultadosRubricaGrupo", Storage="_ReultadosRubricaGrupos", ThisKey="GrupoId", OtherKey="GrupoId")]
-		public EntitySet<ReultadosRubricaGrupo> ReultadosRubricaGrupos
-		{
-			get
-			{
-				return this._ReultadosRubricaGrupos;
-			}
-			set
-			{
-				this._ReultadosRubricaGrupos.Assign(value);
-			}
-		}
-		
-		[Association(Name="Trabajo_Grupo", Storage="_Trabajo", ThisKey="TrabajoId", OtherKey="TrabajoId", IsForeignKey=true)]
-		public Trabajo Trabajo
-		{
-			get
-			{
-				return this._Trabajo.Entity;
-			}
-			set
-			{
-				Trabajo previousValue = this._Trabajo.Entity;
-				if (((previousValue != value) 
-							|| (this._Trabajo.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Trabajo.Entity = null;
-						previousValue.Grupos.Remove(this);
-					}
-					this._Trabajo.Entity = value;
-					if ((value != null))
-					{
-						value.Grupos.Add(this);
-						this._TrabajoId = value.TrabajoId;
-					}
-					else
-					{
-						this._TrabajoId = default(int);
-					}
-					this.SendPropertyChanged("Trabajo");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_AlumnosGrupos(AlumnosGrupo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Grupo = this;
-		}
-		
-		private void detach_AlumnosGrupos(AlumnosGrupo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Grupo = null;
-		}
-		
-		private void attach_ArchivosGrupos(ArchivosGrupo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Grupo = this;
-		}
-		
-		private void detach_ArchivosGrupos(ArchivosGrupo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Grupo = null;
-		}
-		
-		private void attach_ReultadosRubricaGrupos(ReultadosRubricaGrupo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Grupo = this;
-		}
-		
-		private void detach_ReultadosRubricaGrupos(ReultadosRubricaGrupo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Grupo = null;
 		}
 	}
 	
@@ -2004,198 +1837,6 @@ namespace ePortafolioMVC.Models
 		}
 	}
 	
-	[Table(Name="dbo.ReultadosRubricaGrupo")]
-	public partial class ReultadosRubricaGrupo : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RubricaId;
-		
-		private int _GrupoId;
-		
-		private decimal _Resultado;
-		
-		private EntityRef<Grupo> _Grupo;
-		
-		private EntityRef<Rubrica> _Rubrica;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRubricaIdChanging(int value);
-    partial void OnRubricaIdChanged();
-    partial void OnGrupoIdChanging(int value);
-    partial void OnGrupoIdChanged();
-    partial void OnResultadoChanging(decimal value);
-    partial void OnResultadoChanged();
-    #endregion
-		
-		public ReultadosRubricaGrupo()
-		{
-			this._Grupo = default(EntityRef<Grupo>);
-			this._Rubrica = default(EntityRef<Rubrica>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_RubricaId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int RubricaId
-		{
-			get
-			{
-				return this._RubricaId;
-			}
-			set
-			{
-				if ((this._RubricaId != value))
-				{
-					if (this._Rubrica.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRubricaIdChanging(value);
-					this.SendPropertyChanging();
-					this._RubricaId = value;
-					this.SendPropertyChanged("RubricaId");
-					this.OnRubricaIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_GrupoId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int GrupoId
-		{
-			get
-			{
-				return this._GrupoId;
-			}
-			set
-			{
-				if ((this._GrupoId != value))
-				{
-					if (this._Grupo.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnGrupoIdChanging(value);
-					this.SendPropertyChanging();
-					this._GrupoId = value;
-					this.SendPropertyChanged("GrupoId");
-					this.OnGrupoIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Resultado", DbType="Money NOT NULL")]
-		public decimal Resultado
-		{
-			get
-			{
-				return this._Resultado;
-			}
-			set
-			{
-				if ((this._Resultado != value))
-				{
-					this.OnResultadoChanging(value);
-					this.SendPropertyChanging();
-					this._Resultado = value;
-					this.SendPropertyChanged("Resultado");
-					this.OnResultadoChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Grupo_ReultadosRubricaGrupo", Storage="_Grupo", ThisKey="GrupoId", OtherKey="GrupoId", IsForeignKey=true)]
-		public Grupo Grupo
-		{
-			get
-			{
-				return this._Grupo.Entity;
-			}
-			set
-			{
-				Grupo previousValue = this._Grupo.Entity;
-				if (((previousValue != value) 
-							|| (this._Grupo.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Grupo.Entity = null;
-						previousValue.ReultadosRubricaGrupos.Remove(this);
-					}
-					this._Grupo.Entity = value;
-					if ((value != null))
-					{
-						value.ReultadosRubricaGrupos.Add(this);
-						this._GrupoId = value.GrupoId;
-					}
-					else
-					{
-						this._GrupoId = default(int);
-					}
-					this.SendPropertyChanged("Grupo");
-				}
-			}
-		}
-		
-		[Association(Name="Rubrica_ReultadosRubricaGrupo", Storage="_Rubrica", ThisKey="RubricaId", OtherKey="RubricaId", IsForeignKey=true)]
-		public Rubrica Rubrica
-		{
-			get
-			{
-				return this._Rubrica.Entity;
-			}
-			set
-			{
-				Rubrica previousValue = this._Rubrica.Entity;
-				if (((previousValue != value) 
-							|| (this._Rubrica.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Rubrica.Entity = null;
-						previousValue.ReultadosRubricaGrupos.Remove(this);
-					}
-					this._Rubrica.Entity = value;
-					if ((value != null))
-					{
-						value.ReultadosRubricaGrupos.Add(this);
-						this._RubricaId = value.RubricaId;
-					}
-					else
-					{
-						this._RubricaId = default(int);
-					}
-					this.SendPropertyChanged("Rubrica");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[Table(Name="dbo.Rubricas")]
 	public partial class Rubrica : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2206,9 +1847,11 @@ namespace ePortafolioMVC.Models
 		
 		private string _Nombre;
 		
-		private EntitySet<ReultadosRubricaGrupo> _ReultadosRubricaGrupos;
+		private EntitySet<CriteriosRubrica> _CriteriosRubricas;
 		
 		private EntitySet<RubricasTrabajo> _RubricasTrabajos;
+		
+		private EntitySet<ResultadosRubricaGrupo> _ResultadosRubricaGrupos;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2222,8 +1865,9 @@ namespace ePortafolioMVC.Models
 		
 		public Rubrica()
 		{
-			this._ReultadosRubricaGrupos = new EntitySet<ReultadosRubricaGrupo>(new Action<ReultadosRubricaGrupo>(this.attach_ReultadosRubricaGrupos), new Action<ReultadosRubricaGrupo>(this.detach_ReultadosRubricaGrupos));
+			this._CriteriosRubricas = new EntitySet<CriteriosRubrica>(new Action<CriteriosRubrica>(this.attach_CriteriosRubricas), new Action<CriteriosRubrica>(this.detach_CriteriosRubricas));
 			this._RubricasTrabajos = new EntitySet<RubricasTrabajo>(new Action<RubricasTrabajo>(this.attach_RubricasTrabajos), new Action<RubricasTrabajo>(this.detach_RubricasTrabajos));
+			this._ResultadosRubricaGrupos = new EntitySet<ResultadosRubricaGrupo>(new Action<ResultadosRubricaGrupo>(this.attach_ResultadosRubricaGrupos), new Action<ResultadosRubricaGrupo>(this.detach_ResultadosRubricaGrupos));
 			OnCreated();
 		}
 		
@@ -2267,16 +1911,16 @@ namespace ePortafolioMVC.Models
 			}
 		}
 		
-		[Association(Name="Rubrica_ReultadosRubricaGrupo", Storage="_ReultadosRubricaGrupos", ThisKey="RubricaId", OtherKey="RubricaId")]
-		public EntitySet<ReultadosRubricaGrupo> ReultadosRubricaGrupos
+		[Association(Name="Rubrica_CriteriosRubrica", Storage="_CriteriosRubricas", ThisKey="RubricaId", OtherKey="RubricaId")]
+		public EntitySet<CriteriosRubrica> CriteriosRubricas
 		{
 			get
 			{
-				return this._ReultadosRubricaGrupos;
+				return this._CriteriosRubricas;
 			}
 			set
 			{
-				this._ReultadosRubricaGrupos.Assign(value);
+				this._CriteriosRubricas.Assign(value);
 			}
 		}
 		
@@ -2290,6 +1934,19 @@ namespace ePortafolioMVC.Models
 			set
 			{
 				this._RubricasTrabajos.Assign(value);
+			}
+		}
+		
+		[Association(Name="Rubrica_ResultadosRubricaGrupo", Storage="_ResultadosRubricaGrupos", ThisKey="RubricaId", OtherKey="RubricaId")]
+		public EntitySet<ResultadosRubricaGrupo> ResultadosRubricaGrupos
+		{
+			get
+			{
+				return this._ResultadosRubricaGrupos;
+			}
+			set
+			{
+				this._ResultadosRubricaGrupos.Assign(value);
 			}
 		}
 		
@@ -2313,13 +1970,13 @@ namespace ePortafolioMVC.Models
 			}
 		}
 		
-		private void attach_ReultadosRubricaGrupos(ReultadosRubricaGrupo entity)
+		private void attach_CriteriosRubricas(CriteriosRubrica entity)
 		{
 			this.SendPropertyChanging();
 			entity.Rubrica = this;
 		}
 		
-		private void detach_ReultadosRubricaGrupos(ReultadosRubricaGrupo entity)
+		private void detach_CriteriosRubricas(CriteriosRubrica entity)
 		{
 			this.SendPropertyChanging();
 			entity.Rubrica = null;
@@ -2336,6 +1993,18 @@ namespace ePortafolioMVC.Models
 			this.SendPropertyChanging();
 			entity.Rubrica = null;
 		}
+		
+		private void attach_ResultadosRubricaGrupos(ResultadosRubricaGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Rubrica = this;
+		}
+		
+		private void detach_ResultadosRubricaGrupos(ResultadosRubricaGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Rubrica = null;
+		}
 	}
 	
 	[Table(Name="dbo.RubricasTrabajo")]
@@ -2347,8 +2016,6 @@ namespace ePortafolioMVC.Models
 		private int _RubricaId;
 		
 		private int _TrabajoId;
-		
-		private decimal _Ponderacion;
 		
 		private EntityRef<Rubrica> _Rubrica;
 		
@@ -2362,8 +2029,6 @@ namespace ePortafolioMVC.Models
     partial void OnRubricaIdChanged();
     partial void OnTrabajoIdChanging(int value);
     partial void OnTrabajoIdChanged();
-    partial void OnPonderacionChanging(decimal value);
-    partial void OnPonderacionChanged();
     #endregion
 		
 		public RubricasTrabajo()
@@ -2417,26 +2082,6 @@ namespace ePortafolioMVC.Models
 					this._TrabajoId = value;
 					this.SendPropertyChanged("TrabajoId");
 					this.OnTrabajoIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Ponderacion", DbType="Money NOT NULL")]
-		public decimal Ponderacion
-		{
-			get
-			{
-				return this._Ponderacion;
-			}
-			set
-			{
-				if ((this._Ponderacion != value))
-				{
-					this.OnPonderacionChanging(value);
-					this.SendPropertyChanging();
-					this._Ponderacion = value;
-					this.SendPropertyChanged("Ponderacion");
-					this.OnPonderacionChanged();
 				}
 			}
 		}
@@ -2554,9 +2199,9 @@ namespace ePortafolioMVC.Models
 		
 		private EntitySet<TrabajosResultadosPrograma> _TrabajosResultadosProgramas;
 		
-		private EntitySet<Grupo> _Grupos;
-		
 		private EntitySet<RubricasTrabajo> _RubricasTrabajos;
+		
+		private EntitySet<Grupo> _Grupos;
 		
 		private EntityRef<Curso> _Curso;
 		
@@ -2585,8 +2230,8 @@ namespace ePortafolioMVC.Models
 		public Trabajo()
 		{
 			this._TrabajosResultadosProgramas = new EntitySet<TrabajosResultadosPrograma>(new Action<TrabajosResultadosPrograma>(this.attach_TrabajosResultadosProgramas), new Action<TrabajosResultadosPrograma>(this.detach_TrabajosResultadosProgramas));
-			this._Grupos = new EntitySet<Grupo>(new Action<Grupo>(this.attach_Grupos), new Action<Grupo>(this.detach_Grupos));
 			this._RubricasTrabajos = new EntitySet<RubricasTrabajo>(new Action<RubricasTrabajo>(this.attach_RubricasTrabajos), new Action<RubricasTrabajo>(this.detach_RubricasTrabajos));
+			this._Grupos = new EntitySet<Grupo>(new Action<Grupo>(this.attach_Grupos), new Action<Grupo>(this.detach_Grupos));
 			this._Curso = default(EntityRef<Curso>);
 			OnCreated();
 		}
@@ -2768,19 +2413,6 @@ namespace ePortafolioMVC.Models
 			}
 		}
 		
-		[Association(Name="Trabajo_Grupo", Storage="_Grupos", ThisKey="TrabajoId", OtherKey="TrabajoId")]
-		public EntitySet<Grupo> Grupos
-		{
-			get
-			{
-				return this._Grupos;
-			}
-			set
-			{
-				this._Grupos.Assign(value);
-			}
-		}
-		
 		[Association(Name="Trabajo_RubricasTrabajo", Storage="_RubricasTrabajos", ThisKey="TrabajoId", OtherKey="TrabajoId")]
 		public EntitySet<RubricasTrabajo> RubricasTrabajos
 		{
@@ -2791,6 +2423,19 @@ namespace ePortafolioMVC.Models
 			set
 			{
 				this._RubricasTrabajos.Assign(value);
+			}
+		}
+		
+		[Association(Name="Trabajo_Grupo", Storage="_Grupos", ThisKey="TrabajoId", OtherKey="TrabajoId")]
+		public EntitySet<Grupo> Grupos
+		{
+			get
+			{
+				return this._Grupos;
+			}
+			set
+			{
+				this._Grupos.Assign(value);
 			}
 		}
 		
@@ -2860,6 +2505,18 @@ namespace ePortafolioMVC.Models
 			entity.Trabajo = null;
 		}
 		
+		private void attach_RubricasTrabajos(RubricasTrabajo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Trabajo = this;
+		}
+		
+		private void detach_RubricasTrabajos(RubricasTrabajo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Trabajo = null;
+		}
+		
 		private void attach_Grupos(Grupo entity)
 		{
 			this.SendPropertyChanging();
@@ -2871,17 +2528,667 @@ namespace ePortafolioMVC.Models
 			this.SendPropertyChanging();
 			entity.Trabajo = null;
 		}
+	}
+	
+	[Table(Name="dbo.ResultadosRubricaGrupo")]
+	public partial class ResultadosRubricaGrupo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
 		
-		private void attach_RubricasTrabajos(RubricasTrabajo entity)
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RubricaId;
+		
+		private int _GrupoId;
+		
+		private int _CriterioId;
+		
+		private EntityRef<Rubrica> _Rubrica;
+		
+		private EntityRef<CriteriosRubrica> _CriteriosRubrica;
+		
+		private EntityRef<Grupo> _Grupo;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRubricaIdChanging(int value);
+    partial void OnRubricaIdChanged();
+    partial void OnGrupoIdChanging(int value);
+    partial void OnGrupoIdChanged();
+    partial void OnCriterioIdChanging(int value);
+    partial void OnCriterioIdChanged();
+    #endregion
+		
+		public ResultadosRubricaGrupo()
 		{
-			this.SendPropertyChanging();
-			entity.Trabajo = this;
+			this._Rubrica = default(EntityRef<Rubrica>);
+			this._CriteriosRubrica = default(EntityRef<CriteriosRubrica>);
+			this._Grupo = default(EntityRef<Grupo>);
+			OnCreated();
 		}
 		
-		private void detach_RubricasTrabajos(RubricasTrabajo entity)
+		[Column(Storage="_RubricaId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int RubricaId
+		{
+			get
+			{
+				return this._RubricaId;
+			}
+			set
+			{
+				if ((this._RubricaId != value))
+				{
+					if (this._Rubrica.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRubricaIdChanging(value);
+					this.SendPropertyChanging();
+					this._RubricaId = value;
+					this.SendPropertyChanged("RubricaId");
+					this.OnRubricaIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_GrupoId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int GrupoId
+		{
+			get
+			{
+				return this._GrupoId;
+			}
+			set
+			{
+				if ((this._GrupoId != value))
+				{
+					if (this._Grupo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGrupoIdChanging(value);
+					this.SendPropertyChanging();
+					this._GrupoId = value;
+					this.SendPropertyChanged("GrupoId");
+					this.OnGrupoIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CriterioId", DbType="Int NOT NULL")]
+		public int CriterioId
+		{
+			get
+			{
+				return this._CriterioId;
+			}
+			set
+			{
+				if ((this._CriterioId != value))
+				{
+					if (this._CriteriosRubrica.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCriterioIdChanging(value);
+					this.SendPropertyChanging();
+					this._CriterioId = value;
+					this.SendPropertyChanged("CriterioId");
+					this.OnCriterioIdChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Rubrica_ResultadosRubricaGrupo", Storage="_Rubrica", ThisKey="RubricaId", OtherKey="RubricaId", IsForeignKey=true)]
+		public Rubrica Rubrica
+		{
+			get
+			{
+				return this._Rubrica.Entity;
+			}
+			set
+			{
+				Rubrica previousValue = this._Rubrica.Entity;
+				if (((previousValue != value) 
+							|| (this._Rubrica.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Rubrica.Entity = null;
+						previousValue.ResultadosRubricaGrupos.Remove(this);
+					}
+					this._Rubrica.Entity = value;
+					if ((value != null))
+					{
+						value.ResultadosRubricaGrupos.Add(this);
+						this._RubricaId = value.RubricaId;
+					}
+					else
+					{
+						this._RubricaId = default(int);
+					}
+					this.SendPropertyChanged("Rubrica");
+				}
+			}
+		}
+		
+		[Association(Name="CriteriosRubrica_ResultadosRubricaGrupo", Storage="_CriteriosRubrica", ThisKey="CriterioId", OtherKey="CriterioId", IsForeignKey=true)]
+		public CriteriosRubrica CriteriosRubrica
+		{
+			get
+			{
+				return this._CriteriosRubrica.Entity;
+			}
+			set
+			{
+				CriteriosRubrica previousValue = this._CriteriosRubrica.Entity;
+				if (((previousValue != value) 
+							|| (this._CriteriosRubrica.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CriteriosRubrica.Entity = null;
+						previousValue.ResultadosRubricaGrupos.Remove(this);
+					}
+					this._CriteriosRubrica.Entity = value;
+					if ((value != null))
+					{
+						value.ResultadosRubricaGrupos.Add(this);
+						this._CriterioId = value.CriterioId;
+					}
+					else
+					{
+						this._CriterioId = default(int);
+					}
+					this.SendPropertyChanged("CriteriosRubrica");
+				}
+			}
+		}
+		
+		[Association(Name="Grupo_ResultadosRubricaGrupo", Storage="_Grupo", ThisKey="GrupoId", OtherKey="GrupoId", IsForeignKey=true)]
+		public Grupo Grupo
+		{
+			get
+			{
+				return this._Grupo.Entity;
+			}
+			set
+			{
+				Grupo previousValue = this._Grupo.Entity;
+				if (((previousValue != value) 
+							|| (this._Grupo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Grupo.Entity = null;
+						previousValue.ResultadosRubricaGrupos.Remove(this);
+					}
+					this._Grupo.Entity = value;
+					if ((value != null))
+					{
+						value.ResultadosRubricaGrupos.Add(this);
+						this._GrupoId = value.GrupoId;
+					}
+					else
+					{
+						this._GrupoId = default(int);
+					}
+					this.SendPropertyChanged("Grupo");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.Grupos")]
+	public partial class Grupo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _GrupoId;
+		
+		private int _TrabajoId;
+		
+		private string _Nota;
+		
+		private EntitySet<AlumnosGrupo> _AlumnosGrupos;
+		
+		private EntitySet<ArchivosGrupo> _ArchivosGrupos;
+		
+		private EntitySet<ResultadosRubricaGrupo> _ResultadosRubricaGrupos;
+		
+		private EntityRef<Trabajo> _Trabajo;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnGrupoIdChanging(int value);
+    partial void OnGrupoIdChanged();
+    partial void OnTrabajoIdChanging(int value);
+    partial void OnTrabajoIdChanged();
+    partial void OnNotaChanging(string value);
+    partial void OnNotaChanged();
+    #endregion
+		
+		public Grupo()
+		{
+			this._AlumnosGrupos = new EntitySet<AlumnosGrupo>(new Action<AlumnosGrupo>(this.attach_AlumnosGrupos), new Action<AlumnosGrupo>(this.detach_AlumnosGrupos));
+			this._ArchivosGrupos = new EntitySet<ArchivosGrupo>(new Action<ArchivosGrupo>(this.attach_ArchivosGrupos), new Action<ArchivosGrupo>(this.detach_ArchivosGrupos));
+			this._ResultadosRubricaGrupos = new EntitySet<ResultadosRubricaGrupo>(new Action<ResultadosRubricaGrupo>(this.attach_ResultadosRubricaGrupos), new Action<ResultadosRubricaGrupo>(this.detach_ResultadosRubricaGrupos));
+			this._Trabajo = default(EntityRef<Trabajo>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_GrupoId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int GrupoId
+		{
+			get
+			{
+				return this._GrupoId;
+			}
+			set
+			{
+				if ((this._GrupoId != value))
+				{
+					this.OnGrupoIdChanging(value);
+					this.SendPropertyChanging();
+					this._GrupoId = value;
+					this.SendPropertyChanged("GrupoId");
+					this.OnGrupoIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_TrabajoId", DbType="Int NOT NULL")]
+		public int TrabajoId
+		{
+			get
+			{
+				return this._TrabajoId;
+			}
+			set
+			{
+				if ((this._TrabajoId != value))
+				{
+					if (this._Trabajo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrabajoIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrabajoId = value;
+					this.SendPropertyChanged("TrabajoId");
+					this.OnTrabajoIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Nota", DbType="VarChar(5) NOT NULL", CanBeNull=false)]
+		public string Nota
+		{
+			get
+			{
+				return this._Nota;
+			}
+			set
+			{
+				if ((this._Nota != value))
+				{
+					this.OnNotaChanging(value);
+					this.SendPropertyChanging();
+					this._Nota = value;
+					this.SendPropertyChanged("Nota");
+					this.OnNotaChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Grupo_AlumnosGrupo", Storage="_AlumnosGrupos", ThisKey="GrupoId", OtherKey="GrupoId")]
+		public EntitySet<AlumnosGrupo> AlumnosGrupos
+		{
+			get
+			{
+				return this._AlumnosGrupos;
+			}
+			set
+			{
+				this._AlumnosGrupos.Assign(value);
+			}
+		}
+		
+		[Association(Name="Grupo_ArchivosGrupo", Storage="_ArchivosGrupos", ThisKey="GrupoId", OtherKey="GrupoId")]
+		public EntitySet<ArchivosGrupo> ArchivosGrupos
+		{
+			get
+			{
+				return this._ArchivosGrupos;
+			}
+			set
+			{
+				this._ArchivosGrupos.Assign(value);
+			}
+		}
+		
+		[Association(Name="Grupo_ResultadosRubricaGrupo", Storage="_ResultadosRubricaGrupos", ThisKey="GrupoId", OtherKey="GrupoId")]
+		public EntitySet<ResultadosRubricaGrupo> ResultadosRubricaGrupos
+		{
+			get
+			{
+				return this._ResultadosRubricaGrupos;
+			}
+			set
+			{
+				this._ResultadosRubricaGrupos.Assign(value);
+			}
+		}
+		
+		[Association(Name="Trabajo_Grupo", Storage="_Trabajo", ThisKey="TrabajoId", OtherKey="TrabajoId", IsForeignKey=true)]
+		public Trabajo Trabajo
+		{
+			get
+			{
+				return this._Trabajo.Entity;
+			}
+			set
+			{
+				Trabajo previousValue = this._Trabajo.Entity;
+				if (((previousValue != value) 
+							|| (this._Trabajo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Trabajo.Entity = null;
+						previousValue.Grupos.Remove(this);
+					}
+					this._Trabajo.Entity = value;
+					if ((value != null))
+					{
+						value.Grupos.Add(this);
+						this._TrabajoId = value.TrabajoId;
+					}
+					else
+					{
+						this._TrabajoId = default(int);
+					}
+					this.SendPropertyChanged("Trabajo");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_AlumnosGrupos(AlumnosGrupo entity)
 		{
 			this.SendPropertyChanging();
-			entity.Trabajo = null;
+			entity.Grupo = this;
+		}
+		
+		private void detach_AlumnosGrupos(AlumnosGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Grupo = null;
+		}
+		
+		private void attach_ArchivosGrupos(ArchivosGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Grupo = this;
+		}
+		
+		private void detach_ArchivosGrupos(ArchivosGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Grupo = null;
+		}
+		
+		private void attach_ResultadosRubricaGrupos(ResultadosRubricaGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Grupo = this;
+		}
+		
+		private void detach_ResultadosRubricaGrupos(ResultadosRubricaGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Grupo = null;
+		}
+	}
+	
+	[Table(Name="dbo.Alumnos")]
+	public partial class Alumno : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _AlumnoId;
+		
+		private string _Nombre;
+		
+		private string _Mail;
+		
+		private EntitySet<AlumnosCurso> _AlumnosCursos;
+		
+		private EntitySet<AlumnosGrupo> _AlumnosGrupos;
+		
+		private EntitySet<Archivo> _Archivos;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAlumnoIdChanging(string value);
+    partial void OnAlumnoIdChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnMailChanging(string value);
+    partial void OnMailChanged();
+    #endregion
+		
+		public Alumno()
+		{
+			this._AlumnosCursos = new EntitySet<AlumnosCurso>(new Action<AlumnosCurso>(this.attach_AlumnosCursos), new Action<AlumnosCurso>(this.detach_AlumnosCursos));
+			this._AlumnosGrupos = new EntitySet<AlumnosGrupo>(new Action<AlumnosGrupo>(this.attach_AlumnosGrupos), new Action<AlumnosGrupo>(this.detach_AlumnosGrupos));
+			this._Archivos = new EntitySet<Archivo>(new Action<Archivo>(this.attach_Archivos), new Action<Archivo>(this.detach_Archivos));
+			OnCreated();
+		}
+		
+		[Column(Storage="_AlumnoId", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string AlumnoId
+		{
+			get
+			{
+				return this._AlumnoId;
+			}
+			set
+			{
+				if ((this._AlumnoId != value))
+				{
+					this.OnAlumnoIdChanging(value);
+					this.SendPropertyChanging();
+					this._AlumnoId = value;
+					this.SendPropertyChanged("AlumnoId");
+					this.OnAlumnoIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Nombre", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Mail", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Mail
+		{
+			get
+			{
+				return this._Mail;
+			}
+			set
+			{
+				if ((this._Mail != value))
+				{
+					this.OnMailChanging(value);
+					this.SendPropertyChanging();
+					this._Mail = value;
+					this.SendPropertyChanged("Mail");
+					this.OnMailChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Alumno_AlumnosCurso", Storage="_AlumnosCursos", ThisKey="AlumnoId", OtherKey="AlumnoId")]
+		public EntitySet<AlumnosCurso> AlumnosCursos
+		{
+			get
+			{
+				return this._AlumnosCursos;
+			}
+			set
+			{
+				this._AlumnosCursos.Assign(value);
+			}
+		}
+		
+		[Association(Name="Alumno_AlumnosGrupo", Storage="_AlumnosGrupos", ThisKey="AlumnoId", OtherKey="AlumnoId")]
+		public EntitySet<AlumnosGrupo> AlumnosGrupos
+		{
+			get
+			{
+				return this._AlumnosGrupos;
+			}
+			set
+			{
+				this._AlumnosGrupos.Assign(value);
+			}
+		}
+		
+		[Association(Name="Alumno_Archivo", Storage="_Archivos", ThisKey="AlumnoId", OtherKey="AlumnoId")]
+		public EntitySet<Archivo> Archivos
+		{
+			get
+			{
+				return this._Archivos;
+			}
+			set
+			{
+				this._Archivos.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_AlumnosCursos(AlumnosCurso entity)
+		{
+			this.SendPropertyChanging();
+			entity.Alumno = this;
+		}
+		
+		private void detach_AlumnosCursos(AlumnosCurso entity)
+		{
+			this.SendPropertyChanging();
+			entity.Alumno = null;
+		}
+		
+		private void attach_AlumnosGrupos(AlumnosGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Alumno = this;
+		}
+		
+		private void detach_AlumnosGrupos(AlumnosGrupo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Alumno = null;
+		}
+		
+		private void attach_Archivos(Archivo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Alumno = this;
+		}
+		
+		private void detach_Archivos(Archivo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Alumno = null;
 		}
 	}
 }

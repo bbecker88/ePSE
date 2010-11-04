@@ -7,6 +7,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Details</h2>
+            <% using (Html.BeginBorder())
+               {%>
+               <%= Html.ActionLink("Generar consolidado de notas", "Grades", new { TrabajoId = Model.Trabajo.TrabajoId})%>
+               <br /><br />
+       <%} %>
+        
     <% using (Html.BeginBorder())
        {%>
     <% using (Html.BeginForm())
@@ -17,10 +23,10 @@
     <table class="table">
         <tr>
             <th>
-                Grupo
+                Estado
             </th>
             <th style="width: 200px;">
-                Integrante
+                Integrantes
             </th>
             <th>
                 Rol
@@ -29,14 +35,19 @@
                 Nota
             </th>
             <th>
-                Descargar
+                Opciones
             </th>
         </tr>
         <% foreach (var grupo in Model.ListGrupos)
            { %>
+           
         <tr>
-            <td>
-                <%= Html.Encode(grupo.GrupoId) %>
+            
+                <%if(grupo.ArchivosGrupos.Count!=0) {%>
+            <td class="entregado"> Entregado
+                <%} else {%>
+            <td class="pendiente"> Pendiente
+                <%} %>
             </td>
             <td style="width: 200px;">
                 <table>
@@ -65,12 +76,12 @@
                 <%} %>
             </td>
             <td>
-                20!
+                <%= Html.Encode(grupo.Nota) %>
             </td>
             <td>
                 <%= Html.ActionLink("Descargar Todo", "DownloadFiles", new { GrupoId = grupo.GrupoId})%>
                 <br />
-                <a>Ver archivos</a>
+                <%= Html.ActionLink("Evaluar", "GradeAssignment", new { GrupoId = grupo.GrupoId})%>
             </td>
         </tr>
         <%  } %>
@@ -78,11 +89,11 @@
     <br />
     <br />
     <h3>
-        Alumnos sin grupo</h3>
+       Alumnos sin grupo</h3>
         <br />
     <% foreach (var integrante in Model.ListAlumnosSinGrupo)
        { %>
-    <%= Html.Encode(integrante.Nombre) %>
+    <img src="<%=Url.Content("~/Content/images/imgGrupoSin.png")%>" /> <%= Html.Encode(integrante.Nombre) %>
     <br />
     <%} %>
     <% } %>

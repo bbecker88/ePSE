@@ -7,6 +7,7 @@ using ePortafolioMVC.Models;
 using ePortafolioMVC.ViewModels;
 using System.IO;
 using System.Security.AccessControl;
+using ePortafolioMVC.Helpers;
 
 namespace ePortafolioMVC.Controllers
 {
@@ -139,7 +140,20 @@ namespace ePortafolioMVC.Controllers
                 ePortafolioDAO.ArchivosGrupos.InsertOnSubmit(archivoGrupo);
                 //Hace el commit de los cambios
                 ePortafolioDAO.SubmitChanges();
+
+                foreach (var alumnoGrupo in Grupo.AlumnosGrupos)
+                {
+                    String Mensaje = "Estimado #NOMBRE, </br>"+
+                                     "Se ha agregado el archivo <b>#ARCHIVO</b> al trabajo <b>#TRABAJO</b> del curso <b>#CURSO</b>";
+                    Mensaje = Mensaje.Replace("#NOMBRE", alumnoGrupo.Alumno.Nombre);
+                    Mensaje = Mensaje.Replace("#ARCHIVO", FileNameOnDisk);
+                    Mensaje = Mensaje.Replace("#TRABAJO", Trabajo.Nombre);
+                    Mensaje = Mensaje.Replace("#CURSO", Trabajo.Curso.Nombre);
+
+                    EmailHelper.SendMail(alumnoGrupo.Alumno.Mail, "ePSE - Archivo agregado", Mensaje);
+                }
             }
+
             //Redirecciona a la accion Details de Student con el ID del Trabajo
             return RedirectToAction("Details", new { id = id });
         }

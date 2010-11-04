@@ -61,6 +61,50 @@ namespace ePortafolioMVC.Controllers
             return View(DetalleTrabajoProfesorViewModel);
         }
 
+
+        public ActionResult GradeAssignment(int GrupoId)
+        {
+            CalificarTrabajoProfesorViewModel CalificarTrabajoProfesorViewModel = new CalificarTrabajoProfesorViewModel();
+
+            var Grupo = ePortafolioDAO.Grupos.SingleOrDefault(g => g.GrupoId == GrupoId);
+
+            CalificarTrabajoProfesorViewModel.Grupo = Grupo;
+            CalificarTrabajoProfesorViewModel.ListRubricas = ePortafolioDAO.Rubricas.Where(r => r.RubricasTrabajos.Any(rt=>rt.TrabajoId==Grupo.TrabajoId)).ToList();
+            CalificarTrabajoProfesorViewModel.ListResultados = ePortafolioDAO.ResultadosRubricaGrupos.Where(r => r.GrupoId == GrupoId).ToList();
+
+            return View(CalificarTrabajoProfesorViewModel);
+        }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult GradeAssignment(int GrupoId, FormCollection formValues)
+        {
+            //Elimina todos los puntajes anteriores asignados
+            ePortafolioDAO.ResultadosRubricaGrupos.DeleteAllOnSubmit(ePortafolioDAO.ResultadosRubricaGrupos.Where(rrg => rrg.GrupoId == GrupoId));
+
+            Double Nota = 0;
+
+            foreach (String Key in formValues)
+            {
+                int CriterioSeleccionado = Convert.ToInt32(formValues[Key]);
+                ePortafolioDAO.ResultadosRubricaGrupos.InsertOnSubmit(new ResultadosRubricaGrupo { CriterioId = CriterioSeleccionado, GrupoId = GrupoId, RubricaId = Convert.ToInt32(Key) });
+                Nota += Convert.ToDouble(ePortafolioDAO.CriteriosRubricas.SingleOrDefault(cr => cr.CriterioId == CriterioSeleccionado).Valor);
+            }
+
+            var Grupo = ePortafolioDAO.Grupos.FirstOrDefault(g=>g.GrupoId == GrupoId);
+            var RubricasTrabajo = ePortafolioDAO.RubricasTrabajos.Where(r => r.TrabajoId == Grupo.TrabajoId);
+
+            if (formValues.Count == RubricasTrabajo.Count()) //Existe una calificacion para cara critero de la rubrica, es posible dar una nota final
+                Grupo.Nota = Nota.ToString("F2");
+            else if (formValues.Count != 0)
+                Grupo.Nota = "IN";
+
+            ePortafolioDAO.SubmitChanges();
+
+            return RedirectToAction("GradeAssignment", new { GrupoId = GrupoId });
+        }
+        
+
         public ActionResult DownloadFiles(int GrupoId)
         {
             var Grupo = ePortafolioDAO.Grupos.SingleOrDefault(g => g.GrupoId == GrupoId);
@@ -130,6 +174,39 @@ namespace ePortafolioMVC.Controllers
 
             //Redirige a la accion Index del ProfessorController
             return RedirectToAction("Index", "Professor");
+        }
+
+        public ActionResult Grades(int TrabajoId)
+        {
+            var Trabajo = ePortafolioDAO.Trabajos.SingleOrDefault(t => t.TrabajoId == TrabajoId);
+
+            ReporteNotasTrabajoProfesorViewModel ReporteNotasTrabajoProfesorViewModel = new ReporteNotasTrabajoProfesorViewModel();
+
+            ReporteNotasTrabajoProfesorViewModel.Trabajo = Trabajo;
+
+            ReporteNotasTrabajoProfesorViewModel.ListAlumnoNotas = new List<AlumnoNota>();
+
+            foreach(var grupo in ePortafolioDAO.Grupos.Where(g=>g.TrabajoId == TrabajoId))
+            {
+                foreach(var alumno in grupo.AlumnosGrupos)
+                {
+                    ReporteNotasTrabajoProfesorViewModel.ListAlumnoNotas.Add(new AlumnoNota(){Alumno=alumno.Alumno,Nota=grupo.Nota});
+                }
+            }
+
+                        //Obtiene los estudiantes del curso que no esten en ningun grupo para este trabajo
+            List<Alumno> ListAlumnosSinGrupo = ePortafolioDAO.Alumnos.Where(a =>
+                        ePortafolioDAO.AlumnosCursos.Any(ac => ac.CursoId == Trabajo.CursoId && ac.AlumnoId == a.AlumnoId) &&
+                        !ePortafolioDAO.AlumnosGrupos.Any(ag => ag.Grupo.Trabajo.TrabajoId == TrabajoId && ag.AlumnoId == a.AlumnoId)).ToList();
+
+            foreach(var alumno in ListAlumnosSinGrupo)
+            {
+            ReporteNotasTrabajoProfesorViewModel.ListAlumnoNotas.Add(new AlumnoNota(){Alumno=alumno,Nota="NE"});
+            }
+
+            ReporteNotasTrabajoProfesorViewModel.ListAlumnoNotas.Sort(delegate(AlumnoNota a1, AlumnoNota a2) { return a1.Alumno.Nombre.CompareTo(a2.Alumno.Nombre); });
+
+            return View(ReporteNotasTrabajoProfesorViewModel);
         }
     }
 }
