@@ -98,6 +98,7 @@ namespace ePortafolioMVC.Controllers
         [HttpPost]
         public ActionResult UploadFile(String id, FormCollection formValues)
         {
+            
             //Si existen multiples archivos, se procesa cada uno por separado
             foreach (string file in Request.Files)
             {
@@ -110,30 +111,28 @@ namespace ePortafolioMVC.Controllers
                 HttpPostedFileBase hpf = Request.Files[file] as HttpPostedFileBase;
                 if (hpf.ContentLength == 0)
                     continue;
-
                 //
                 // TODO: Incluir ciclo del trabajo, modificar el GUID
                 //Nombre del archivo
-                String FileNameOnDisk = "#FILENAME".Replace("#FILENAME", hpf.FileName);
+                String FileNameOnDisk = "#FILENAME".Replace("#FILENAME", System.IO.Path.GetFileName(hpf.FileName));
                 //GUID del archivo
                 String FileGUIDName = "#GUID".Replace("#GUID", "GUID");
                 //Directorio virtual del archivo
-                String FileVirtualPathOnDisk = "\\Files\\#CICLO\\#CURSO\\#TRABAJO\\#GRUPO\\".Replace("#CICLO", "2010-II").Replace("#CURSO", Trabajo.Curso.CursoId).Replace("#TRABAJO", Trabajo.Nombre).Replace("#GRUPO", Grupo.GrupoId.ToString());
+                String FileVirtualPathOnDisk = "Files\\#CICLO\\#CURSO\\#TRABAJO\\#GRUPO\\".Replace("#CICLO", "2010-II").Replace("#CURSO", Trabajo.Curso.CursoId).Replace("#TRABAJO", Trabajo.Nombre).Replace("#GRUPO", Grupo.GrupoId.ToString());
                 //Directorio fisica del archivo
-                String FilePathOnDisk = "#BASEDIR\\#FILEVIRTUALPATH".Replace("#BASEDIR", Server.MapPath("~/")).Replace("#FILEVIRTUALPATH", FileVirtualPathOnDisk);
+                String FilePathOnDisk = "#BASEDIR#FILEVIRTUALPATH".Replace("#BASEDIR", Server.MapPath("~/")).Replace("#FILEVIRTUALPATH", FileVirtualPathOnDisk);
                 //Ruta virtual del archivo
-                String CompleteFileVirtualPathOnDisk = FileVirtualPathOnDisk + FileGUIDName + "_" + FileNameOnDisk;
+                String CompleteFileVirtualPathOnDisk = "\\"+FileVirtualPathOnDisk + FileGUIDName + "_" + FileNameOnDisk;
                 //Ruta fisica del archivo
                 String CompleteFilePathPathOnDisk = FilePathOnDisk + FileGUIDName + "_" + FileNameOnDisk;
                 //Crea el directorio fisico del archivo
                 Directory.CreateDirectory(FilePathOnDisk);
                 //Graba el archivo en la ruta fisica del archivo
                 hpf.SaveAs(CompleteFilePathPathOnDisk);
-
                 //
                 // TODO: Incluir el id del tipo de archivo
                 //Crea el archivo para insertar
-                Archivo archivo = new Archivo() { Nombre = hpf.FileName,Extension=Path.GetExtension(hpf.FileName), Ruta = CompleteFileVirtualPathOnDisk, TipoArchivoId = 1, AlumnoId = EstudianteId, FechaSubida = DateTime.Now };
+                Archivo archivo = new Archivo() { Nombre = FileNameOnDisk, Extension = Path.GetExtension(hpf.FileName), Ruta = CompleteFileVirtualPathOnDisk, TipoArchivoId = 1, AlumnoId = EstudianteId, FechaSubida = DateTime.Now };
                 //Crea el archivoGrupo para insertar
                 ArchivosGrupo archivoGrupo = new ArchivosGrupo() { Archivo = archivo, GrupoId = Grupo.GrupoId };
                 //Marca el archivoGurpo para insercion
@@ -154,11 +153,15 @@ namespace ePortafolioMVC.Controllers
             var TrabajoId = id;
             //Obtiene el ID del estudiante registrado
             var EstudianteId = ((UserInfo)Session["UserInfo"]).Codigo;
-
+            //Obtiene el trabajo actual
             var Trabajo = ePortafolioDAO.Trabajos.SingleOrDefault(t => t.TrabajoId == TrabajoId);
+            //Crea el grupo a insertar
             var GrupoInsertar = new Grupo() { TrabajoId = TrabajoId };
+            //Agrega el estudiante actual como lider
             GrupoInsertar.AlumnosGrupos.Add(new AlumnosGrupo { AlumnoId = EstudianteId, EsLider = true });
+            //Marca GrupoInsertar para agregar
             Trabajo.Grupos.Add(GrupoInsertar);
+            //Agrega el GrupoInsertar
             ePortafolioDAO.SubmitChanges();
             //Redirecciona a la accion Details de Student con el ID del Trabajo
             return RedirectToAction("Details", new { id = TrabajoId });
@@ -170,8 +173,11 @@ namespace ePortafolioMVC.Controllers
         // Redirige a la accion de Details
         public ActionResult DeleteStudent(String GrupoId, String TrabajoId, String AlumnoId)
         {
+            //Obtiene el estudiante
             var Student = ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.AlumnoId.ToString() == AlumnoId && ag.GrupoId.ToString() == GrupoId);
+            //Marca el estudiante para ser eliminado
             ePortafolioDAO.AlumnosGrupos.DeleteOnSubmit(Student);
+            //Elimina el estudiante
             ePortafolioDAO.SubmitChanges();
             //Redirecciona a la accion Details de Student con el ID del Trabajo
             return RedirectToAction("Details", new { id = TrabajoId });
@@ -183,8 +189,11 @@ namespace ePortafolioMVC.Controllers
         // Redirige a la accion de Details
         public ActionResult MakeLeader(String GrupoId, String AlumnoId, String TrabajoId)
         {
+            //Obtiene el lider actual y le quita el liderato
             ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.GrupoId.ToString() == GrupoId && ag.EsLider == true).EsLider = false;
+            //Asigna el liderato al alumno actual
             ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.GrupoId.ToString() == GrupoId && ag.AlumnoId.ToString() == AlumnoId).EsLider = true;
+            //Guarda los cambios
             ePortafolioDAO.SubmitChanges();
             //Redirecciona a la accion Details de Student con el ID del Trabajo
             return RedirectToAction("Details", new { id = TrabajoId });
@@ -196,9 +205,11 @@ namespace ePortafolioMVC.Controllers
         // Redirige a la accion de Index
         public ActionResult WithdrawStudent(String GrupoId, String AlumnoId)
         {
+            //Busca y marca el estudiante para ser eliminado
             ePortafolioDAO.AlumnosGrupos.DeleteOnSubmit(ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.GrupoId.ToString() == GrupoId && ag.AlumnoId.ToString() == AlumnoId));
+            //Elimina el estudiante del grupo
             ePortafolioDAO.SubmitChanges();
-
+            //Redirecciona a la accion Index de Student
             return RedirectToAction("Index");
 
         }
@@ -213,16 +224,19 @@ namespace ePortafolioMVC.Controllers
             // TODO: Eliminar los archivos del disco y depurar la tabla de Archivos Eliminados
             //
 
+            //Marca los Archivos a ser eliminados
             ePortafolioDAO.Archivos.DeleteAllOnSubmit(ePortafolioDAO.Archivos.Where(a => ePortafolioDAO.ArchivosGrupos.Any(ag => ag.GrupoId.ToString() == GrupoId && ag.ArchivoId==a.ArchivoId)));
+            //Marca los ArchivosGrupos a ser eliminados
             ePortafolioDAO.ArchivosGrupos.DeleteAllOnSubmit(ePortafolioDAO.ArchivosGrupos.Where(ag => ag.GrupoId.ToString() == GrupoId));
+            //Marca los AlumnosGrupos a ser eliminados
             ePortafolioDAO.AlumnosGrupos.DeleteAllOnSubmit(ePortafolioDAO.AlumnosGrupos.Where(ag => ag.GrupoId.ToString() == GrupoId));
+            //Marca el Grupo a ser eliminados
             ePortafolioDAO.Grupos.DeleteOnSubmit(ePortafolioDAO.Grupos.SingleOrDefault(g => g.GrupoId.ToString() == GrupoId));
+            //Guarda los cambios
             ePortafolioDAO.SubmitChanges();
-
+            //Redirecciona a la accion Index de Student
             return RedirectToAction("Index");
         }
-
-
 
     }
 }

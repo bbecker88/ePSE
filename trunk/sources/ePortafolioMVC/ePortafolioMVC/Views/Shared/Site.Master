@@ -31,7 +31,8 @@
                 </h2>
             </div>
             <ul id="navlist">
-                <li><a href="/" id="current">Inicio</a></li>
+                <li>
+                    <%= Html.ActionLink("Inicio", "Index", "Home", null, new {id="current"})%></li>
                 <% if (Session["UserInfo"] == null)
                    { //Si no existe un usuario registrado: Log In%>
                 <li>

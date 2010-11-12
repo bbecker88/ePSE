@@ -214,7 +214,7 @@
                     <%= Html.Encode(archivo.Alumno.Nombre)%>
                 </td>
                 <td>
-                    <a href="<%= Html.Encode(archivo.Ruta)%>">Descargar</a>
+                    <a href="<%= Html.Encode(Url.Content("~"+archivo.Ruta))%>">Descargar</a>
                 </td>
             </tr>
             <%  } %>

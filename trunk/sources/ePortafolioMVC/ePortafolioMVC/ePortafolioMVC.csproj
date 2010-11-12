@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations">
@@ -83,6 +84,7 @@
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Classes\Valor.cs" />
+    <Compile Include="ViewModels\DetalleTrabajoProfesorViewModel.cs" />
     <Compile Include="ViewModels\GrupoTrabajoViewModel.cs" />
     <Compile Include="ViewModels\TrabajoViewModel.cs" />
   </ItemGroup>
@@ -132,6 +134,7 @@
     <Content Include="Content\Vertebrate.css" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
+    <Content Include="Views\Professor\Details.aspx" />
     <Content Include="Views\Professor\Edit.aspx" />
     <Content Include="Views\Professor\Index.aspx" />
     <Content Include="Views\Shared\index.html" />
