@@ -9,9 +9,11 @@ namespace ePortafolioMVC.Helpers
 {
     public static class EmailHelper
     {
-            static String myAccount = "info.ePSE@gmail.com";
-            static String myPass = "3p5e@p4S5_w0rD!";
+            /*static String myAccount = "info.ePSE@gmail.com";
+            static String myPass = "3p5e@p4S5_w0rD!";*/
 
+            static String myAccount = "u511477@upc.edu.pe";
+            static String myPass = "redalert31";
 
             public static bool SendMail(String to, String subject, String message)
         {
@@ -24,15 +26,15 @@ namespace ePortafolioMVC.Helpers
                 msg.Subject = subject;
                 msg.Body = message;
                 msg.IsBodyHtml = true;
-                SmtpClient client = new SmtpClient("smtp.gmail.com");
-                client.EnableSsl = true;
+                SmtpClient client = new SmtpClient("upcmail1a.upc.edu.pe");
+                client.EnableSsl = false;
                 client.UseDefaultCredentials = false;
                 client.Credentials = loginInfo;
                 client.Send(msg);
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

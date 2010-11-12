@@ -9,7 +9,8 @@ namespace ePortafolioMVC.ViewModels
     public class DetalleTrabajoProfesorViewModel
     {
         public Trabajo Trabajo { get; set; }
-        public List<Grupo> ListGrupos { get; set; }
+        public List<Grupo> ListGruposEntregado { get; set; }
+        public List<Grupo> ListGruposPendiente { get; set; }
         public List<Alumno> ListAlumnosSinGrupo { get; set; }
     }
 }

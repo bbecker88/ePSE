@@ -4,8 +4,12 @@
     Notas
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Consolidado de notas</h2>
+    <h3 style="text-align: center">
+        <%= Html.Encode(Model.Trabajo.CursoId + " " + Model.Trabajo.Curso.Nombre) %></h3>
+    <h2 style="text-align: center">
+        <%= Html.Encode(Model.Trabajo.Nombre) %></h2>
+    <h3 style="text-align: center">
+        <%= Html.Encode("Consolidado de Notas") %></h4>
     <% using (Html.BeginBorder())
        {%>
     <% using (Html.BeginForm())
@@ -15,7 +19,7 @@
     <br />
     <table class="table">
         <tr>
-            <th style="width: 500px; text-align: left;">
+            <th style="width: 500px;">
                 Nombre
             </th>
             <th style="width: 70px;">
@@ -35,13 +39,17 @@
         <%  } %>
     </table>
     <br />
-    <%= Html.Encode("* IN = Evaluacion imcompleta / NE = No evaluado") %>  
+    <%= Html.Encode("* IN = Evaluacion imcompleta / NE = No evaluado / NA = No aplica")%>  
     <br />
     <br />
-    <input type="submit" class="button" id="submitButton" value="Grabar" />
+    <input type="submit" class="button" id="submitButton" value="Imprimir" />
     <% } %>
     <% } %>
     <div>
-        <%= Html.ActionLink("Regresar", "Details", new{id =  Model.Trabajo.TrabajoId})%>
+    
+    <%switch(Model.Origen){ %>
+        <%case "Details":%><%= Html.ActionLink("Regresar", "Details", new{id =  Model.Trabajo.TrabajoId})%><%break; %>
+        <%case "Index":%><%= Html.ActionLink("Regresar", "Index")%><%break; %>
+        <%}%>
     </div>
 </asp:Content>

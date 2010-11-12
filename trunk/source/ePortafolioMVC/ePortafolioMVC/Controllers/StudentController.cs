@@ -60,6 +60,14 @@ namespace ePortafolioMVC.Controllers
             };
             //Se incorpora la lista de alumnos sin grupo al GrupoTrabajoViewModel 
             GrupoTrabajoViewModel.AlumnosSinGrupo = GetSelectListSinGrupo(GrupoTrabajoViewModel.Trabajo.CursoId, GrupoTrabajoViewModel.Trabajo.TrabajoId.ToString());
+
+
+            if (GrupoTrabajoViewModel.Grupo == null && GrupoTrabajoViewModel.Trabajo.EsGrupal == false)
+            {
+                return RedirectToAction("GroupCreate", new { id = id });
+            }
+            
+            
             //Si tiene Grupo
             if (GrupoTrabajoViewModel.Grupo != null && GrupoTrabajoViewModel.Grupo.ArchivosGrupos != null)
             {
@@ -170,7 +178,7 @@ namespace ePortafolioMVC.Controllers
             //Obtiene el trabajo actual
             var Trabajo = ePortafolioDAO.Trabajos.SingleOrDefault(t => t.TrabajoId == TrabajoId);
             //Crea el grupo a insertar
-            var GrupoInsertar = new Grupo() { TrabajoId = TrabajoId };
+            var GrupoInsertar = new Grupo() { TrabajoId = TrabajoId,Nota="NE"};
             //Agrega el estudiante actual como lider
             GrupoInsertar.AlumnosGrupos.Add(new AlumnosGrupo { AlumnoId = EstudianteId, EsLider = true });
             //Marca GrupoInsertar para agregar
@@ -246,10 +254,32 @@ namespace ePortafolioMVC.Controllers
             ePortafolioDAO.AlumnosGrupos.DeleteAllOnSubmit(ePortafolioDAO.AlumnosGrupos.Where(ag => ag.GrupoId.ToString() == GrupoId));
             //Marca el Grupo a ser eliminados
             ePortafolioDAO.Grupos.DeleteOnSubmit(ePortafolioDAO.Grupos.SingleOrDefault(g => g.GrupoId.ToString() == GrupoId));
+            //Marca los ResultadosRubricaGrupos a ser eliminados
+            ePortafolioDAO.ResultadosRubricaGrupos.DeleteAllOnSubmit(ePortafolioDAO.ResultadosRubricaGrupos.Where(rrg => rrg.GrupoId.ToString() == GrupoId));
             //Guarda los cambios
             ePortafolioDAO.SubmitChanges();
             //Redirecciona a la accion Index de Student
             return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteFile(int GrupoId,int ArchivoId)
+        {
+            //
+            // TODO: Eliminar los archivos del disco y depurar la tabla de Archivos Eliminados
+            //
+            var Grupo = ePortafolioDAO.Grupos.SingleOrDefault(g => g.GrupoId == GrupoId);
+            //Obtiene el Archivo a eliminar
+            var Archivo = ePortafolioDAO.Archivos.SingleOrDefault(a => a.ArchivoId == ArchivoId);
+            //Obtiene el ArchivoGrupo a eliminar
+            var ArchivoGrupo = ePortafolioDAO.ArchivosGrupos.SingleOrDefault(ag => ag.ArchivoId == ArchivoId && ag.GrupoId==GrupoId);
+            //Marca los ArchivosGrupo a ser eliminados
+            ePortafolioDAO.ArchivosGrupos.DeleteOnSubmit(ArchivoGrupo);
+            //Marca los Archivos a ser eliminados
+            ePortafolioDAO.Archivos.DeleteOnSubmit(Archivo);
+            //Guarda los cambios
+            ePortafolioDAO.SubmitChanges();
+            //Redirecciona a la accion Index de Student
+            return RedirectToAction("Details", new { id = Grupo.TrabajoId });
         }
 
     }

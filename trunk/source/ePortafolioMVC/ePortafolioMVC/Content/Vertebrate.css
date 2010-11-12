@@ -384,27 +384,42 @@ a:hover
 
 .table .ya-no-vigente
 {
-    background-color: White;
+    background-color: #f7f7f7;
 }
+
+img
+{
+    border: solid 0px white;
+    }
 
 .table .aun-no-vigente
 {
-    background-color: #ff9694;
+    background-color: #ffcccc;
 }
 
 .table .vigente
 {
-    background-color: #c0e671;
+    background-color: #ccffcc;
 }
 
-.table .entregado 
+.table .entregado th
 {
-    background-color:#bdf37d;
+    background-color:Green;
 }
 
-.table .pendiente
+.table .alt
 {
-    background-color:#f37d7d;
+    background-color:#eee;
+}
+
+.table .selected
+{
+    font-weight:bold;
+}
+
+.table .noentregado th
+{
+    background-color:Red;
 }
 
 .fileButton

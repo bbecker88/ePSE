@@ -35,14 +35,14 @@ namespace ePortafolioMVC.Controllers
                     {
                         //Session["UserInfo"] != null indica que hay usuario registrado
                         Session["UserInfo"] = new UserInfo { Codigo = userAutentication.User, Nombre = ePortafolioDAO.Profesores.SingleOrDefault(p => p.ProfesorId.ToString() == userAutentication.User).Nombre + " (Profesor)", Rol = RolDescription.Profesor };
+                        return RedirectToAction("Index", "Professor");
                     }
                     else //Se trata de un alumno
                     {
                         //Session["UserInfo"] != null indica que hay usuario registrado
                         Session["UserInfo"] = new UserInfo { Codigo = userAutentication.User, Nombre = ePortafolioDAO.Alumnos.SingleOrDefault(a => a.AlumnoId.ToString() == userAutentication.User).Nombre + " (Estudiante)", Rol = RolDescription.Estudiante };
+                        return RedirectToAction("Index", "Student");
                     }
-                    
-                    return RedirectToAction("Index", "Home");
                 }
 
                 //Session["UserInfo"] == null indica que no hay usuario registrado

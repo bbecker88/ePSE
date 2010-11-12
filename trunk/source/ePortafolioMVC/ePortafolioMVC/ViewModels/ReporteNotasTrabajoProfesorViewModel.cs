@@ -10,6 +10,7 @@ namespace ePortafolioMVC.ViewModels
     {
         public Trabajo Trabajo { get; set; }
         public List<AlumnoNota> ListAlumnoNotas { get; set; }
+        public String Origen { get; set; }
     }
 
     public class AlumnoNota

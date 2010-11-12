@@ -25,7 +25,6 @@
 
     <script type="text/javascript" src="http://yui.yahooapis.com/2.8.1/build/editor/editor-min.js"></script>
 
-    <script src="../../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
     <!-- FIN DE ARCHIVOS NECESARIOS DEL COMPONENTE YUI: RICH TEXT EDITOR -->
 
     <!-- INICIO DE JAVASCRIPT -->
@@ -37,11 +36,11 @@
 
             var myConfig = {
                 height: '300px',
-                width: '550px',
+                width: '555px',
                 animate: true,
                 toolbar: false,
                 dompath: true,
-                focusAtStart: false,
+                focusAtStart: false
             };
 
             var myEditor = new YAHOO.widget.Editor('trabajo.Instrucciones', myConfig);
@@ -62,10 +61,14 @@
         
     </script>
     <!-- FIN DE JAVASCRIPT -->
-    <h2>
-        <%=Html.Encode(Model.Trabajo.CursoId + " " + Model.Trabajo.Nombre) %></h2>
+    <h3 style="text-align: center">
+        <%= Html.Encode(Model.Trabajo.CursoId + " " + Model.Trabajo.Curso.Nombre) %></h3>
+    <h2 style="text-align: center">
+        <%= Html.Encode(Model.Trabajo.Nombre) %></h2>
+    <h3 style="text-align: center">
+        <%= Html.Encode("Detalles") %></h4>
     <%-------- INICIO DE PARTE DE GRUPOS --------%>
-    <% using (Html.BeginBorder())
+    <% if(Model.Trabajo.EsGrupal){ using (Html.BeginBorder())
        {%>
     
     <%if (Model.Grupo == null)
@@ -159,7 +162,7 @@
     </p>
     <%}%>
     <% } %>
-    <% } %>
+    <% } %>   <% } %>
     <%-------- FIN DE PARTE DE GRUPOS --------%>
     
     <%-------- INICIO DE PARTE DE ARCHIVOS --------%>
@@ -183,9 +186,6 @@
         <table class="table">
             <tr>
                 <th>
-                    Tipo
-                </th>
-                <th>
                     Nombre
                 </th>
                 <th>
@@ -195,15 +195,12 @@
                     Subido por
                 </th>
                 <th>
-                    Descargar
+                    Opciones
                 </th>
             </tr>
             <% foreach (var archivo in Model.Archivos)
                { %>
             <tr id="Tr1">
-                <td>
-                <%= Html.Encode(archivo.Extension)%>
-                </td>
                 <td style="width: 300px; text-align: left;">
                     <%= Html.Encode(archivo.Nombre)%>
                 </td>
@@ -211,10 +208,13 @@
                     <%= Html.Encode(archivo.FechaSubida.Value.ToShortDateString())%>
                 </td>
                 <td>
-                    <%= Html.Encode(archivo.Alumno.Nombre)%>
+                    <span title="<%= Html.Encode(archivo.Alumno.Nombre)%>">
+                    <%= Html.Encode(archivo.Alumno.AlumnoId)%>
+                    </span>
                 </td>
                 <td>
-                    <a href="<%= Html.Encode(Url.Content("~"+archivo.Ruta))%>">Descargar</a>
+                    <a href="<%= Html.Encode(Url.Content("~"+archivo.Ruta))%>"><img src="<%= Url.Content("~/Content/images/imgDownload.png")%>" title="Descargar"/></a>
+                    <%= Html.ActionLinkImage(Url.Content("~/Content/images/imgDelete.png"),"DeleteFile","Eliminar",new{GrupoId = Model.Grupo.GrupoId,ArchivoId = archivo.ArchivoId}) %>
                 </td>
             </tr>
             <%  } %>
@@ -232,8 +232,12 @@
        }%>
     <%-------- FIN DE PARTE DE ARCHIVOS --------%>   
        
-    <%-------- INICIO DE PARTE DE INSTRUCCIONES --------%>
-    <% using (Html.BeginBorder())
+       
+       
+       
+       
+    <%-------- INICIO DE PARTE DE INSTRUCCIONES --------%> 
+    <% if(Model.Trabajo.Instrucciones!=null && Model.Trabajo.Instrucciones.Trim()!=""){ using (Html.BeginBorder())
        {%>
     <% using (Html.BeginForm())
        {%>
@@ -250,7 +254,7 @@
     </span>
     </div>
     <br />
-    <%} %>
+    <%} %><%} %>
     <%} %>
     <%-------- FIN DE PARTE DE INSTRUCCIONES --------%>
        

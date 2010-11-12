@@ -21,10 +21,7 @@
       {%>
     <table class="table">
         <tr>
-            <th>
-                Detalles
-            </th>
-            <th style="width: 200px;">
+            <th style="width: 270px;">
                 Trabajo
             </th>
             <th>
@@ -37,7 +34,7 @@
                 Modo
             </th>
             <th>
-                Editar
+                Opciones
             </th>
         </tr>
         <% foreach (var trabajo in item.Trabajos)
@@ -57,11 +54,8 @@
               //El trabajo esta vigente%>
                 <tr class="vigente">
                     <%} %>
-                    <td>
-                        <%= Html.ActionLink("Detalles", "Details", new { id = trabajo.TrabajoId})%>
-                    </td>
-                    <td style="width: 200px; text-align: left;">
-                        <%= Html.Encode(trabajo.Nombre) %>
+                    <td style="text-align: left;">
+                        <%= Html.ActionLink(trabajo.Nombre, "Details", new { id = trabajo.TrabajoId})%>
                     </td>
                     <td>
                         <%= Html.Encode(trabajo.FechaInicio.HasValue?trabajo.FechaInicio.Value.ToShortDateString():"-") %>
@@ -80,8 +74,9 @@
                         
                     </td>
                     <td>
-                        <a href="<%= Url.Action("Edit", "Professor", new { id = trabajo.TrabajoId })%>">
-                            <img src="<%=Url.Content("~/Content/images/imgEditarTrabajo.png")%>" /></a>
+                        <%= Html.ActionLinkImage(Url.Content("~/Content/images/imgEditarTrabajo.png"),"Edit","Editar",new { id = trabajo.TrabajoId }) %>
+                        <%= Html.ActionLinkImage(Url.Content("~/Content/images/imgRubricas.png"), "GradeAssignment", "Ver rubricas", new {TrabajoId=trabajo.TrabajoId, GrupoId = 0, Origen = "Index", Editable = false })%>
+                        <%= Html.ActionLinkImage(Url.Content("~/Content/images/imgConsolidado.png"), "Grades", "Ver consolidado de notas", new { TrabajoId = trabajo.TrabajoId, Origen = "Index" })%>
                     </td>
                 </tr>
                 <%  } %>

@@ -48,7 +48,13 @@ namespace ePortafolioMVC.Controllers
         {
             var DetalleTrabajoProfesorViewModel = new DetalleTrabajoProfesorViewModel();
             DetalleTrabajoProfesorViewModel.Trabajo = ePortafolioDAO.Trabajos.Single(t => t.TrabajoId == id);
-            DetalleTrabajoProfesorViewModel.ListGrupos = ePortafolioDAO.Grupos.Where(g => g.TrabajoId == id).ToList();
+            //Lista de grupos del trabajo que tienen archivos subidos;
+            DetalleTrabajoProfesorViewModel.ListGruposEntregado = ePortafolioDAO.Grupos.Where(g => g.TrabajoId == id && g.ArchivosGrupos.Count!=0).ToList();
+            //Lista de grupos del trabajo que no tienen archivos subidos;
+            DetalleTrabajoProfesorViewModel.ListGruposPendiente = ePortafolioDAO.Grupos.Where(g => g.TrabajoId == id && g.ArchivosGrupos.Count == 0).ToList();
+            
+            
+
             var CursoId = DetalleTrabajoProfesorViewModel.Trabajo.CursoId;
             var TrabajoId = id;
 
@@ -57,51 +63,71 @@ namespace ePortafolioMVC.Controllers
                         ePortafolioDAO.AlumnosCursos.Any(ac => ac.CursoId == CursoId && ac.AlumnoId == a.AlumnoId) &&
                         !ePortafolioDAO.AlumnosGrupos.Any(ag => ag.Grupo.Trabajo.TrabajoId == TrabajoId && ag.AlumnoId == a.AlumnoId)).ToList();
 
+            foreach (Alumno alumno in DetalleTrabajoProfesorViewModel.ListAlumnosSinGrupo)
+            {
+                var Grupo = new Grupo();
+                Grupo.AlumnosGrupos.Add(new AlumnosGrupo() { Alumno = alumno});
+                Grupo.Nota="NA";
+
+                DetalleTrabajoProfesorViewModel.ListGruposPendiente.Add(Grupo);
+            }
+
             // Crea una vista para un Trabajo
             return View(DetalleTrabajoProfesorViewModel);
         }
 
 
-        public ActionResult GradeAssignment(int GrupoId)
+        public ActionResult GradeAssignment(int TrabajoId, int GrupoId, String Origen, bool Editable)
         {
             CalificarTrabajoProfesorViewModel CalificarTrabajoProfesorViewModel = new CalificarTrabajoProfesorViewModel();
 
             var Grupo = ePortafolioDAO.Grupos.SingleOrDefault(g => g.GrupoId == GrupoId);
-
+            var Trabajo = ePortafolioDAO.Trabajos.FirstOrDefault(t => t.TrabajoId == TrabajoId);
             CalificarTrabajoProfesorViewModel.Grupo = Grupo;
-            CalificarTrabajoProfesorViewModel.ListRubricas = ePortafolioDAO.Rubricas.Where(r => r.RubricasTrabajos.Any(rt=>rt.TrabajoId==Grupo.TrabajoId)).ToList();
+            CalificarTrabajoProfesorViewModel.Trabajo = Trabajo;
+            CalificarTrabajoProfesorViewModel.ListRubricas = ePortafolioDAO.Rubricas.Where(r => r.RubricasTrabajos.Any(rt=>rt.TrabajoId==TrabajoId)).ToList();
             CalificarTrabajoProfesorViewModel.ListResultados = ePortafolioDAO.ResultadosRubricaGrupos.Where(r => r.GrupoId == GrupoId).ToList();
+            CalificarTrabajoProfesorViewModel.Origen = Origen;
+            CalificarTrabajoProfesorViewModel.Editable= Editable;
 
             return View(CalificarTrabajoProfesorViewModel);
         }
 
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult GradeAssignment(int GrupoId, FormCollection formValues)
+        public ActionResult GradeAssignment(int TrabajoId, int GrupoId,String Origen,bool Editable, FormCollection formValues)
         {
-            //Elimina todos los puntajes anteriores asignados
-            ePortafolioDAO.ResultadosRubricaGrupos.DeleteAllOnSubmit(ePortafolioDAO.ResultadosRubricaGrupos.Where(rrg => rrg.GrupoId == GrupoId));
-
-            Double Nota = 0;
-
-            foreach (String Key in formValues)
+            var Grupo = ePortafolioDAO.Grupos.FirstOrDefault(g => g.GrupoId == GrupoId);
+            
+            if (Editable)
             {
-                int CriterioSeleccionado = Convert.ToInt32(formValues[Key]);
-                ePortafolioDAO.ResultadosRubricaGrupos.InsertOnSubmit(new ResultadosRubricaGrupo { CriterioId = CriterioSeleccionado, GrupoId = GrupoId, RubricaId = Convert.ToInt32(Key) });
-                Nota += Convert.ToDouble(ePortafolioDAO.CriteriosRubricas.SingleOrDefault(cr => cr.CriterioId == CriterioSeleccionado).Valor);
+                //Elimina todos los puntajes anteriores asignados
+                ePortafolioDAO.ResultadosRubricaGrupos.DeleteAllOnSubmit(ePortafolioDAO.ResultadosRubricaGrupos.Where(rrg => rrg.GrupoId == GrupoId));
+
+                Double Nota = 0;
+
+                foreach (String Key in formValues)
+                {
+                    int CriterioSeleccionado = Convert.ToInt32(formValues[Key]);
+                    ePortafolioDAO.ResultadosRubricaGrupos.InsertOnSubmit(new ResultadosRubricaGrupo { CriterioId = CriterioSeleccionado, GrupoId = GrupoId, RubricaId = Convert.ToInt32(Key) });
+                    Nota += Convert.ToDouble(ePortafolioDAO.CriteriosRubricas.SingleOrDefault(cr => cr.CriterioId == CriterioSeleccionado).Valor);
+                }
+                
+                var RubricasTrabajo = ePortafolioDAO.RubricasTrabajos.Where(r => r.TrabajoId == Grupo.TrabajoId);
+
+                if (formValues.Count == RubricasTrabajo.Count()) //Existe una calificacion para cara critero de la rubrica, es posible dar una nota final
+                    Grupo.Nota = Nota.ToString("F2");
+                else if (formValues.Count != 0)
+                    Grupo.Nota = "IN";
+
+                ePortafolioDAO.SubmitChanges();
             }
-
-            var Grupo = ePortafolioDAO.Grupos.FirstOrDefault(g=>g.GrupoId == GrupoId);
-            var RubricasTrabajo = ePortafolioDAO.RubricasTrabajos.Where(r => r.TrabajoId == Grupo.TrabajoId);
-
-            if (formValues.Count == RubricasTrabajo.Count()) //Existe una calificacion para cara critero de la rubrica, es posible dar una nota final
-                Grupo.Nota = Nota.ToString("F2");
-            else if (formValues.Count != 0)
-                Grupo.Nota = "IN";
-
-            ePortafolioDAO.SubmitChanges();
-
-            return RedirectToAction("GradeAssignment", new { GrupoId = GrupoId });
+            switch (Origen)
+            {
+                case "Details": return RedirectToAction("Details", new { id = Grupo.Trabajo.TrabajoId });
+                case "Index": return RedirectToAction("Index");
+            }
+            return null;
         }
         
 
@@ -154,17 +180,16 @@ namespace ePortafolioMVC.Controllers
             UpdateModel(Trabajo);
 
             //Actualiza el trabajo seleccionado con los datos del formulario que no se actualizaron con UpdateModel
-            Trabajo.Nombre = formValues["trabajo.Nombre"];
             Trabajo.Instrucciones = formValues["trabajo.Instrucciones"];
 
             DateTime FechaInicio;
-            if (DateTime.TryParse(formValues["trabajo.FechaInicio"], out FechaInicio))
+            if (DateTime.TryParse(formValues["FechaInicio"], out FechaInicio))
                 Trabajo.FechaInicio = FechaInicio;
             else
                 Trabajo.FechaInicio = null;
 
             DateTime FechaFin;
-            if (DateTime.TryParse(formValues["trabajo.FechaFin"], out FechaFin))
+            if (DateTime.TryParse(formValues["FechaFin"], out FechaFin))
                 Trabajo.FechaFin = FechaFin;
             else
                 Trabajo.FechaFin = null;
@@ -176,7 +201,7 @@ namespace ePortafolioMVC.Controllers
             return RedirectToAction("Index", "Professor");
         }
 
-        public ActionResult Grades(int TrabajoId)
+        public ActionResult Grades(int TrabajoId,String Origen)
         {
             var Trabajo = ePortafolioDAO.Trabajos.SingleOrDefault(t => t.TrabajoId == TrabajoId);
 
@@ -201,10 +226,12 @@ namespace ePortafolioMVC.Controllers
 
             foreach(var alumno in ListAlumnosSinGrupo)
             {
-            ReporteNotasTrabajoProfesorViewModel.ListAlumnoNotas.Add(new AlumnoNota(){Alumno=alumno,Nota="NE"});
+            ReporteNotasTrabajoProfesorViewModel.ListAlumnoNotas.Add(new AlumnoNota(){Alumno=alumno,Nota="NA"});
             }
 
             ReporteNotasTrabajoProfesorViewModel.ListAlumnoNotas.Sort(delegate(AlumnoNota a1, AlumnoNota a2) { return a1.Alumno.Nombre.CompareTo(a2.Alumno.Nombre); });
+
+            ReporteNotasTrabajoProfesorViewModel.Origen = Origen;
 
             return View(ReporteNotasTrabajoProfesorViewModel);
         }

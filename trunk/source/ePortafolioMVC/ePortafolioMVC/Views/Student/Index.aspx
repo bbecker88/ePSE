@@ -27,9 +27,9 @@
     <table class="table">
         <tr>
             <th>
-                Detalles
+                Rol
             </th>
-            <th style="width: 200px">
+            <th style="width: 270px">
                 Trabajo
             </th>
             <th>
@@ -41,60 +41,62 @@
             <th>
                 Modo
             </th>
-            <th>
-                Grupo
-            </th>
+
         </tr>
         <% foreach (var trabajo in trabajos)
            { %>
-        <tr>
-            <td>
-                <%= Html.ActionLink("Detalles", "Details", new { id = trabajo.TrabajoId})%>
-            </td>
-            <td style="width: 200px; text-align: left;">
-                <%= Html.Encode(trabajo.Nombre) %>
-            </td>
-            <td>
-                <%= Html.Encode(trabajo.FechaInicio.HasValue?trabajo.FechaInicio.Value.ToShortDateString():"-") %>
-            </td>
-            <td>
-                <%= Html.Encode(trabajo.FechaFin.HasValue ? trabajo.FechaFin.Value.ToShortDateString() : "-")%>
-            </td>
-            <td>
-                <%if (trabajo.EsGrupal)
-                  {%>
-                <img src="<%=Url.Content("~/Content/images/imgGrupal.png")%>" title="Grupal" />
-                <%}
-                  else
-                  {%>
-                <img src="<%=Url.Content("~/Content/images/imgIndividual.png")%>" title="Individual" />
+        <% var grupoAlumno = trabajo.Grupos.SingleOrDefault(g => g.AlumnosGrupos.Any(a => a.AlumnoId.ToString() == AlumnoId));
+                   if (grupoAlumno == null || trabajo.Grupos.SingleOrDefault(g => g.ArchivosGrupos.Any(ag => ag.GrupoId == grupoAlumno.GrupoId))==null) {%>
+        <tr class="aun-no-vigente">
+            <%} else
+              {%>
+            <tr class="vigente">
                 <%}%>
-            </td>
-            <td>
-                <% var grupo = trabajo.Grupos.SingleOrDefault(g => g.AlumnosGrupos.Any(a => a.AlumnoId.ToString() == AlumnoId));
+                <td>
+                    <% var grupo = trabajo.Grupos.SingleOrDefault(g => g.AlumnosGrupos.Any(a => a.AlumnoId.ToString() == AlumnoId));
                    if (grupo == null)
                    {%>
-                <img src="<%=Url.Content("~/Content/images/imgGrupoSin.png")%>" title="Sin grupo" />
-                <%
+                    <img src="<%=Url.Content("~/Content/images/imgGrupoSin.png")%>" title="Sin grupo" />
+                    <%
                     }
                    else
                    {
                        if (grupo.AlumnosGrupos.SingleOrDefault(g => g.AlumnoId.ToString() == AlumnoId).EsLider)
                        {%>
-                <img src="<%=Url.Content("~/Content/images/imgGrupoLider.png")%>" title="Lider de grupo" />
-                <%
+                    <img src="<%=Url.Content("~/Content/images/imgGrupoLider.png")%>" title="Lider de grupo" />
+                    <%
                     }
                        else
                        {%>
-                <img src="<%=Url.Content("~/Content/images/imgGrupoMiembro.png")%>" title="Miembo de grupo" />
-                <%
+                    <img src="<%=Url.Content("~/Content/images/imgGrupoMiembro.png")%>" title="Miembo de grupo" />
+                    <%
                     }
                    }
                
-                %>
-            </td>
-        </tr>
-        <%  } %>
+                    %>
+                </td>
+                <td style="text-align: left;">
+                    <%= Html.ActionLink(trabajo.Nombre, "Details", new { id = trabajo.TrabajoId })%>
+                </td>
+                <td>
+                    <%= Html.Encode(trabajo.FechaInicio.HasValue?trabajo.FechaInicio.Value.ToShortDateString():"-") %>
+                </td>
+                <td>
+                    <%= Html.Encode(trabajo.FechaFin.HasValue ? trabajo.FechaFin.Value.ToShortDateString() : "-")%>
+                </td>
+                <td>
+                    <%if (trabajo.EsGrupal)
+                  {%>
+                    <img src="<%=Url.Content("~/Content/images/imgGrupal.png")%>" title="Grupal" />
+                    <%}
+                  else
+                  {%>
+                    <img src="<%=Url.Content("~/Content/images/imgIndividual.png")%>" title="Individual" />
+                    <%}%>
+                </td>
+
+            </tr>
+            <%  } %>
     </table>
     <% } %>
     <br />
