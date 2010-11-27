@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ePortafolioMVC.Models;
+using ePortafolioMVC.Models.Repository;
 
 namespace ePortafolioMVC.Controllers
 {
     public class LoginController : Controller
     {
         ePortafolioDBDataContext ePortafolioDAO = new ePortafolioDBDataContext();
-        
+
         //
         // GET: /Login/
         // Crea la vista para el Index de Login
@@ -31,18 +32,35 @@ namespace ePortafolioMVC.Controllers
                 //Verifica si el usuario esta registrado
                 if (userAutentication.Autenticate())
                 {
-                    if (userAutentication.Password != null) //Se trata de un profesor
+                    UserInfo UserInfo = new UserInfo();
+                    UserInfo.Codigo = userAutentication.User;
+
+                    if (RepositoryFactory.GetAlumnoRepository().GetAlumno(userAutentication.User) != null)
                     {
-                        //Session["UserInfo"] != null indica que hay usuario registrado
-                        Session["UserInfo"] = new UserInfo { Codigo = userAutentication.User, Nombre = ePortafolioDAO.Profesores.SingleOrDefault(p => p.ProfesorId.ToString() == userAutentication.User).Nombre + " (Profesor)", Rol = RolDescription.Profesor };
+                        UserInfo.Nombre = RepositoryFactory.GetAlumnoRepository().GetAlumno(userAutentication.User).Nombre;
+                        UserInfo.Rol = RolDescription.Estudiante;
+                        Session["ActualAlumno"] = RepositoryFactory.GetAlumnoRepository().GetAlumno(userAutentication.User);
                     }
-                    else //Se trata de un alumno
+                    else if (RepositoryFactory.GetProfesorRepository().GetProfesor(userAutentication.User) != null)
                     {
-                        //Session["UserInfo"] != null indica que hay usuario registrado
-                        Session["UserInfo"] = new UserInfo { Codigo = userAutentication.User, Nombre = ePortafolioDAO.Alumnos.SingleOrDefault(a => a.AlumnoId.ToString() == userAutentication.User).Nombre + " (Estudiante)", Rol = RolDescription.Estudiante };
+                        UserInfo.Nombre = RepositoryFactory.GetProfesorRepository().GetProfesor(userAutentication.User).Nombre;
+                        UserInfo.Rol = RolDescription.Profesor;
+                        Session["ActualProfesor"] = RepositoryFactory.GetProfesorRepository().GetProfesor(userAutentication.User);
                     }
-                    
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["UserInfo"] = UserInfo;
+
+                    Session["ActualPeriodo"] = RepositoryFactory.GetPeriodoRepository().GetGetPeriodoActual();
+
+                    switch (UserInfo.Rol)
+                    {
+                        case RolDescription.Profesor: return RedirectToAction("Index", "Professor");
+                        case RolDescription.Estudiante: return RedirectToAction("Index", "Student");
+                    }
                 }
 
                 //Session["UserInfo"] == null indica que no hay usuario registrado

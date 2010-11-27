@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations">
@@ -73,18 +74,71 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DisposableHelper.cs" />
+    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Models\Entities\BEAlumno.cs" />
+    <Compile Include="Models\Entities\BEArchivo.cs" />
+    <Compile Include="Models\Entities\BECriterio.cs" />
+    <Compile Include="Models\Entities\BECurso.cs" />
+    <Compile Include="Models\Entities\BEGrupo.cs" />
+    <Compile Include="Models\Entities\BEPeriodo.cs" />
+    <Compile Include="Models\Entities\BEResultadoPrograma.cs" />
+    <Compile Include="Models\Entities\BEResultadoRubrica.cs" />
+    <Compile Include="Models\Entities\BERubrica.cs" />
+    <Compile Include="Models\Entities\BETrabajo.cs" />
+    <Compile Include="Models\Entities\BESeccion.cs" />
     <Compile Include="Models\ePortafolioDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ePortafolioDB.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\BEProfesor.cs" />
+    <Compile Include="Models\pyrIntegradoDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>pyrIntegradoDB.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RepositoryFactory.cs" />
+    <Compile Include="Models\Repository\AlumnoRepository.cs" />
+    <Compile Include="Models\Repository\ArchivoRepository.cs" />
+    <Compile Include="Models\Interfaces\IAlumnoRepository.cs" />
+    <Compile Include="Models\Interfaces\ICursoRepository.cs" />
+    <Compile Include="Models\Interfaces\IGrupoRepository.cs" />
+    <Compile Include="Models\Interfaces\IPeriodoRepository.cs" />
+    <Compile Include="Models\Interfaces\IProfesorRepository.cs" />
+    <Compile Include="Models\Interfaces\ISeccionRepository.cs" />
+    <Compile Include="Models\Interfaces\ITrabajoRepository.cs" />
+    <Compile Include="Models\Interfaces\ICriterioRepository.cs" />
+    <Compile Include="Models\Interfaces\IResultadoRubricaRepository.cs" />
+    <Compile Include="Models\Interfaces\IRubricaRepository.cs" />
+    <Compile Include="Models\Interfaces\IArchivoRepository.cs" />
+    <Compile Include="Models\Interfaces\IResultadoProgramaRepository.cs" />
+    <Compile Include="Models\Repository\PeriodoRepository.cs" />
+    <Compile Include="Models\Repository\CriterioRepository.cs" />
+    <Compile Include="Models\Repository\RubricaRepository.cs" />
+    <Compile Include="Models\Repository\SeccionRepository.cs" />
+    <Compile Include="Models\Repository\CursoRepository.cs" />
+    <Compile Include="Models\Repository\GrupoRepository.cs" />
+    <Compile Include="Models\Repository\ProfesorRepository.cs" />
+    <Compile Include="Models\Repository\ResultadoProgramaRepository.cs" />
+    <Compile Include="Models\Repository\ResultadoRubricaRepository.cs" />
+    <Compile Include="Models\Repository\TrabajoRepository.cs" />
+    <Compile Include="Models\SSIADB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SSIADB.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserAutentication.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Classes\Valor.cs" />
-    <Compile Include="ViewModels\GrupoTrabajoViewModel.cs" />
-    <Compile Include="ViewModels\TrabajoViewModel.cs" />
+    <Compile Include="ViewModels\ProfessorHistoryViewModel.cs" />
+    <Compile Include="ViewModels\StudentHistoryViewModel.cs" />
+    <Compile Include="ViewModels\StudentDetailsViewModel.cs" />
+    <Compile Include="ViewModels\StudentIndexViewModel.cs" />
+    <Compile Include="ViewModels\ProfessorGradeAssignment.cs" />
+    <Compile Include="ViewModels\ProfessorDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ProfessorIndexViewModel.cs" />
+    <Compile Include="ViewModels\ProfessorGradesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -110,6 +164,39 @@
     <Content Include="Views\Shared\Error.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\imgRubricas.png" />
+    <Content Include="Content\images\imgConsolidado.png" />
+    <Content Include="Content\images\imgDelete.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-bg_diagonals-thick_75_f3d8d8_40x40.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-bg_dots-small_65_a6a6a6_2x2.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-bg_flat_0_333333_40x100.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-bg_flat_65_ffffff_40x100.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-bg_glass_55_fbf8ee_1x400.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-bg_highlight-hard_100_eeeeee_1x100.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-bg_highlight-hard_100_f6f6f6_1x100.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-bg_highlight-soft_15_cc0000_1x100.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-icons_004276_256x240.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Scripts\jquery-ui\css\blitzer\jquery-ui-1.8.6.custom.css" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Scripts\jquery-ui\css\ui-lightness\jquery-ui-1.8.6.custom.css" />
+    <Content Include="Content\images\imgDownload.png" />
+    <Content Include="Content\images\imgCheck.png" />
     <Content Include="Content\images\imgArchivoZIP.png" />
     <Content Include="Content\images\imgGrupoMiembro.png" />
     <Content Include="Content\images\imgGrupoLider.png" />
@@ -129,14 +216,53 @@
     <Content Include="Content\images\imgEditarTrabajo.png" />
     <Content Include="Content\images\imgGrupal.png" />
     <Content Include="Content\images\imgIndividual.png" />
+    <Content Include="Scripts\jquery-ui\js\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery-ui-1.8.6.custom.js" />
     <Content Include="Content\Vertebrate.css" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.blind.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.bounce.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.clip.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.core.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.drop.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.explode.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.fade.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.fold.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.highlight.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.pulsate.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.scale.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.shake.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.slide.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.effects.transfer.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.accordion.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.autocomplete.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.button.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.core.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.datepicker-es.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.datepicker.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.dialog.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.draggable.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.droppable.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.mouse.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.position.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.progressbar.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.resizable.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.selectable.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.slider.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.sortable.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.tabs.js" />
+    <Content Include="Scripts\jquery-ui\js\jquery.ui.widget.js" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
+    <Content Include="Views\Professor\Details.aspx" />
     <Content Include="Views\Professor\Edit.aspx" />
+    <Content Include="Views\Professor\GradeAssignment.aspx" />
+    <Content Include="Views\Professor\Grades.aspx" />
+    <Content Include="Views\Professor\History.aspx" />
     <Content Include="Views\Professor\Index.aspx" />
     <Content Include="Views\Shared\index.html" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Student\Details.aspx" />
+    <Content Include="Views\Student\History.aspx" />
     <Content Include="Views\Student\Index.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +278,26 @@
   <ItemGroup>
     <None Include="Models\ePortafolioDB.dbml.layout">
       <DependentUpon>ePortafolioDB.dbml</DependentUpon>
+    </None>
+    <None Include="Models\pyrIntegradoDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>pyrIntegradoDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\pyrIntegradoDB.dbml.layout">
+      <DependentUpon>pyrIntegradoDB.dbml</DependentUpon>
+    </None>
+    <None Include="Models\SSIADB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>SSIADB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\SSIADB.dbml.layout">
+      <DependentUpon>SSIADB.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
