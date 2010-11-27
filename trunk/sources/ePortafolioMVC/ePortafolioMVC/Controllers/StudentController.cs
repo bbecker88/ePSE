@@ -7,6 +7,9 @@ using ePortafolioMVC.Models;
 using ePortafolioMVC.ViewModels;
 using System.IO;
 using System.Security.AccessControl;
+using ePortafolioMVC.Helpers;
+using ePortafolioMVC.Models.Repository;
+using ePortafolioMVC.Models.Entities;
 
 namespace ePortafolioMVC.Controllers
 {
@@ -20,24 +23,30 @@ namespace ePortafolioMVC.Controllers
         // Crea una vista para Cursos
         public ActionResult Index()
         {
-            //Obtiene el ID del estudiante registrado
-            var EstudianteId = ((UserInfo)Session["UserInfo"]).Codigo;
-            //Obtiene los cursos matriculados del alumno
-            var Cursos = ePortafolioDAO.Cursos.Where(c => c.AlumnosCursos.Any(a => a.AlumnoId.ToString() == EstudianteId)).ToList();
-            //Crea la vista para los Cursos matriculados
-            return View(Cursos);
-        }
+            StudentIndexViewModel StudentIndexViewModel = new StudentIndexViewModel();
 
-        //
-        // Devuelve una lista de todos los alumnos que esten en el curso pro no esten en ningun grupo
-        private SelectList GetSelectListSinGrupo(String CursoId, String TrabajoId)
-        {
-            //Obtiene los estudiantes del curso que no esten en ningun grupo para este trabajo
-            var ListaAlumnosSinGrupo = ePortafolioDAO.Alumnos.Where(a =>
-                        ePortafolioDAO.AlumnosCursos.Any(ac => ac.CursoId == CursoId && ac.AlumnoId == a.AlumnoId) &&
-                        !ePortafolioDAO.AlumnosGrupos.Any(ag => ag.Grupo.Trabajo.TrabajoId.ToString() == TrabajoId && ag.AlumnoId == a.AlumnoId)).ToList();
-            //Crea el SelectList con value=AlumnoId y data=Nombre
-            return new SelectList(ListaAlumnosSinGrupo, "AlumnoId", "Nombre");
+            BEAlumno Alumno = ((BEAlumno)Session["ActualAlumno"]);
+            BEPeriodo Periodo = ((BEPeriodo)Session["ActualPeriodo"]);
+
+            List<BECurso> CursosMatriculados = RepositoryFactory.GetCursoRepository().GetCursosMatriculados(Alumno.AlumnoId, Periodo.PeriodoId);
+            List<BEGrupo> GruposTrabajosEntregados = RepositoryFactory.GetGrupoRepository().GetGruposTrabajosEntregados(Alumno.AlumnoId, Periodo.PeriodoId);
+            List<BEGrupo> GruposTrabajosPendientes = RepositoryFactory.GetGrupoRepository().GetGruposTrabajosPendientes(Alumno.AlumnoId, Periodo.PeriodoId);
+
+            StudentIndexViewModel.GruposTrabajosEntregados = GruposTrabajosEntregados;
+            StudentIndexViewModel.GruposTrabajosPendientes = GruposTrabajosPendientes;
+            StudentIndexViewModel.ActualAlumno = Alumno;
+
+            CursosMatriculados = CursosMatriculados.OrderBy(x => x.Codigo).ToList();
+
+            foreach (BECurso Curso in CursosMatriculados)
+            {
+                List<BETrabajo> Trabajos = RepositoryFactory.GetTrabajoRepository().GetTrabajosCurso(Curso.CursoId, Periodo.PeriodoId);
+                Trabajos = Trabajos.OrderBy(x => x.Nombre).ToList();
+                StudentIndexViewModel.TrabajosCurso.Add(Curso, Trabajos);
+            }
+
+            //Crea la vista para los Cursos matriculados
+            return View(StudentIndexViewModel);
         }
 
         //
@@ -45,34 +54,59 @@ namespace ePortafolioMVC.Controllers
         // Muestra la pagina de detalles de un trabajo de un alumno. Muestra los integrntes, personas que pueden ser
         // incorporadas, los archivos subidos y las instrucciones
         // Crea la vista para el GrupoTrabajoViewModel
-        public ActionResult Details(String id)
+        public ActionResult Details(int TrabajoId)
         {
-            var TrabajoId = id;
-            //Obtiene el ID del estudiante registrado
-            var EstudianteId = ((UserInfo)Session["UserInfo"]).Codigo;
-            //Crea el GrupoTrabajoViewModel con el Grupo en el que se encuentra el estudiante en este trabajo. 
-            //Tambien se incluye la informacion del Trabajo
-            GrupoTrabajoViewModel GrupoTrabajoViewModel = new GrupoTrabajoViewModel
+            BEAlumno Alumno = ((BEAlumno)Session["ActualAlumno"]);
+            BEPeriodo Periodo = ((BEPeriodo)Session["ActualPeriodo"]);
+
+            BEGrupo Grupo = RepositoryFactory.GetGrupoRepository().GetGrupoAlumno(TrabajoId, Alumno.AlumnoId);
+            BETrabajo Trabajo = RepositoryFactory.GetTrabajoRepository().GetTrabajo(TrabajoId);
+
+            if (Grupo == null && Trabajo.EsGrupal == false)
             {
-                Grupo = ePortafolioDAO.Grupos.SingleOrDefault(g => g.TrabajoId.ToString() == TrabajoId && g.AlumnosGrupos.Any(ag => ag.AlumnoId.ToString() == EstudianteId)),
-                Trabajo = ePortafolioDAO.Trabajos.SingleOrDefault(t => t.TrabajoId.ToString() == TrabajoId)
-            };
-            //Se incorpora la lista de alumnos sin grupo al GrupoTrabajoViewModel 
-            GrupoTrabajoViewModel.AlumnosSinGrupo = GetSelectListSinGrupo(GrupoTrabajoViewModel.Trabajo.CursoId, GrupoTrabajoViewModel.Trabajo.TrabajoId.ToString());
-            //Si tiene Grupo
-            if (GrupoTrabajoViewModel.Grupo != null && GrupoTrabajoViewModel.Grupo.ArchivosGrupos != null)
-            {
-                //Se incorpora la lista de archivos del grupo al GrupoTrabajoViewModel 
-                GrupoTrabajoViewModel.Archivos = ePortafolioDAO.Archivos.Where(a => ePortafolioDAO.ArchivosGrupos.Any(ag => ag.ArchivoId == a.ArchivoId && ag.GrupoId==GrupoTrabajoViewModel.Grupo.GrupoId)).ToList();
+                return RedirectToAction("GroupCreate", new { TrabajoId = TrabajoId });
             }
-            //Si existen alumnos sin grupo se marco como seleccionado el primero
-            if (GrupoTrabajoViewModel.AlumnosSinGrupo.Count() > 0)
-                GrupoTrabajoViewModel.AlumnosSinGrupo.First().Selected = true;
-            //Si existe un Grupo se incuye al GrupoTrabajoViewModel la lista de AlumnosGrupo
-            if (GrupoTrabajoViewModel.Grupo != null)
-                GrupoTrabajoViewModel.AlumnosGrupo = ePortafolioDAO.AlumnosGrupos.Where(ag => ag.GrupoId == GrupoTrabajoViewModel.Grupo.GrupoId).ToList();
-            //Se crea la vista para el GrupoTrabajoViewModel
-            return View(GrupoTrabajoViewModel);
+
+            BECurso Curso = RepositoryFactory.GetCursoRepository().GetCurso(Trabajo.Curso.CursoId, Periodo.PeriodoId);
+            BESeccion Seccion = RepositoryFactory.GetSeccionRepository().GetSeccionCursoAlumno(Alumno.AlumnoId, Curso.CursoId, Periodo.PeriodoId);
+            BEResultadoPrograma ResultadoPrograma = RepositoryFactory.GetResultadoProgramaRepository().GetResultadoPrograma(Curso.CursoId, Periodo.PeriodoId);
+
+            List<BEAlumno> AlumnosGrupo = null;
+            List<BEAlumno> AlumnosSinGrupo = null;
+            List<BEArchivo> ArchivosGrupo = null;
+            SelectList AlumnosSinGrupoSelectList = null;
+
+            if (Grupo != null)
+            {
+                AlumnosGrupo = RepositoryFactory.GetAlumnoRepository().GetAlumnosGrupo(Grupo.GrupoId);
+                AlumnosSinGrupo = RepositoryFactory.GetAlumnoRepository().GetAlumnosSinGrupoSeccionTrabajo(Trabajo.TrabajoId, Seccion.SeccionId);
+                ArchivosGrupo = RepositoryFactory.GetArchivoRepository().GetArchivosGrupo(Grupo.GrupoId);
+
+                AlumnosGrupo = AlumnosGrupo.OrderBy(x => x.Nombre).ToList();
+                AlumnosSinGrupo = AlumnosSinGrupo.OrderBy(x => x.Nombre).ToList();
+                ArchivosGrupo = ArchivosGrupo.OrderBy(x => x.Nombre).ToList();
+
+                AlumnosSinGrupoSelectList = new SelectList(AlumnosSinGrupo, "AlumnoId", "Nombre");
+            }
+
+            StudentDetailsViewModel StudentDetailsViewModel = new StudentDetailsViewModel();
+
+            StudentDetailsViewModel.Alumno = Alumno;
+            StudentDetailsViewModel.Grupo = Grupo;
+            StudentDetailsViewModel.Trabajo = Trabajo;
+            StudentDetailsViewModel.Curso = Curso;
+            StudentDetailsViewModel.Seccion = Seccion;
+            StudentDetailsViewModel.ResultadoPrograma = ResultadoPrograma;
+
+            StudentDetailsViewModel.AlumnosGrupo = AlumnosGrupo;
+            StudentDetailsViewModel.ArchivosGrupo = ArchivosGrupo;
+            StudentDetailsViewModel.AlumnosSinGrupo = AlumnosSinGrupoSelectList;
+            
+
+            if (StudentDetailsViewModel.AlumnosSinGrupo != null && StudentDetailsViewModel.AlumnosSinGrupo.Count() > 0)
+                StudentDetailsViewModel.AlumnosSinGrupo.First().Selected = true;
+
+            return View(StudentDetailsViewModel);
         }
 
         //
@@ -80,125 +114,127 @@ namespace ePortafolioMVC.Controllers
         // Realiza la incorporacion de un estudiante al grupo
         // Redirige a la accion de Details
         [HttpPost]
-        public ActionResult AddStudent(String id, FormCollection formValues)
+        public ActionResult AddStudent(int TrabajoId, FormCollection formValues)
         {
-            //Crea el alumno a insertar
-            AlumnosGrupo InsertStudent = new AlumnosGrupo { AlumnoId = formValues["AlumnoId"], EsLider = false, GrupoId = Convert.ToInt32(formValues["GrupoId"]) };
-            ePortafolioDAO.AlumnosGrupos.InsertOnSubmit(InsertStudent);
-            //Hace el commit de del ingrego del alumno
-            ePortafolioDAO.SubmitChanges();
-            //Redirecciona a la accion Details de Student con el ID del Trabajo
-            return RedirectToAction("Details", new { id = id });
+            RepositoryFactory.GetGrupoRepository().AddAlumnoGrupo(Convert.ToInt32(formValues["GrupoId"]), formValues["AlumnoId"]);
+
+            return RedirectToAction("Details", new { TrabajoId = TrabajoId });
         }
 
         //
-        // POST: /Student/AddStudent/
+        // POST: /Student/UploadFile/
         // Realiza la subida de un archivo para el grupo
         // Redirige a la accion de Details
         [HttpPost]
-        public ActionResult UploadFile(String id, FormCollection formValues)
+        public ActionResult UploadFile(int TrabajoId, FormCollection formValues)
         {
+
             //Si existen multiples archivos, se procesa cada uno por separado
             foreach (string file in Request.Files)
             {
-                //Obtiene el codigo del estudiante registrado
-                var EstudianteId = ((UserInfo)Session["UserInfo"]).Codigo;
-                //Obtiene el Trabajo actual
-                var Trabajo = ePortafolioDAO.Trabajos.Single(t => t.TrabajoId.ToString() == id);
-                //Obtiene el Grupo para el cual se esta subiendo el archivo
-                var Grupo = ePortafolioDAO.Grupos.Single(g => g.TrabajoId.ToString() == id && g.AlumnosGrupos.Any(ag => ag.AlumnoId == EstudianteId));
+
+                BEAlumno Alumno = ((BEAlumno)Session["ActualAlumno"]);
+                BEGrupo Grupo = RepositoryFactory.GetGrupoRepository().GetGrupoAlumno(TrabajoId, Alumno.AlumnoId);
+                BETrabajo Trabajo = RepositoryFactory.GetTrabajoRepository().GetTrabajo(TrabajoId);
+                BECurso Curso = RepositoryFactory.GetCursoRepository().GetCurso(Trabajo.Curso.CursoId, Trabajo.Periodo.PeriodoId);
+
                 HttpPostedFileBase hpf = Request.Files[file] as HttpPostedFileBase;
                 if (hpf.ContentLength == 0)
                     continue;
-
                 //
                 // TODO: Incluir ciclo del trabajo, modificar el GUID
                 //Nombre del archivo
-                String FileNameOnDisk = "#FILENAME".Replace("#FILENAME", hpf.FileName);
+                String FileNameOnDisk = "#FILENAME".Replace("#FILENAME", System.IO.Path.GetFileName(hpf.FileName));
                 //GUID del archivo
                 String FileGUIDName = "#GUID".Replace("#GUID", "GUID");
                 //Directorio virtual del archivo
-                String FileVirtualPathOnDisk = "\\Files\\#CICLO\\#CURSO\\#TRABAJO\\#GRUPO\\".Replace("#CICLO", "2010-II").Replace("#CURSO", Trabajo.Curso.CursoId).Replace("#TRABAJO", Trabajo.Nombre).Replace("#GRUPO", Grupo.GrupoId.ToString());
+                String FileVirtualPathOnDisk = "Files\\#CICLO\\#CURSO\\#TRABAJO\\#GRUPO\\".Replace("#CICLO", "2010-II").Replace("#CURSO", Trabajo.Curso.CursoId.ToString()).Replace("#TRABAJO", Trabajo.Nombre).Replace("#GRUPO", Grupo.GrupoId.ToString());
                 //Directorio fisica del archivo
-                String FilePathOnDisk = "#BASEDIR\\#FILEVIRTUALPATH".Replace("#BASEDIR", Server.MapPath("~/")).Replace("#FILEVIRTUALPATH", FileVirtualPathOnDisk);
+                String FilePathOnDisk = "#BASEDIR#FILEVIRTUALPATH".Replace("#BASEDIR", Server.MapPath("~/")).Replace("#FILEVIRTUALPATH", FileVirtualPathOnDisk);
                 //Ruta virtual del archivo
-                String CompleteFileVirtualPathOnDisk = FileVirtualPathOnDisk + FileGUIDName + "_" + FileNameOnDisk;
+                String CompleteFileVirtualPathOnDisk = "\\" + FileVirtualPathOnDisk + FileGUIDName + "_" + FileNameOnDisk;
                 //Ruta fisica del archivo
                 String CompleteFilePathPathOnDisk = FilePathOnDisk + FileGUIDName + "_" + FileNameOnDisk;
                 //Crea el directorio fisico del archivo
                 Directory.CreateDirectory(FilePathOnDisk);
                 //Graba el archivo en la ruta fisica del archivo
                 hpf.SaveAs(CompleteFilePathPathOnDisk);
-
-                //
-                // TODO: Incluir el id del tipo de archivo
                 //Crea el archivo para insertar
-                Archivo archivo = new Archivo() { Nombre = hpf.FileName,Extension=Path.GetExtension(hpf.FileName), Ruta = CompleteFileVirtualPathOnDisk, TipoArchivoId = 1, AlumnoId = EstudianteId, FechaSubida = DateTime.Now };
-                //Crea el archivoGrupo para insertar
-                ArchivosGrupo archivoGrupo = new ArchivosGrupo() { Archivo = archivo, GrupoId = Grupo.GrupoId };
-                //Marca el archivoGurpo para insercion
-                ePortafolioDAO.ArchivosGrupos.InsertOnSubmit(archivoGrupo);
-                //Hace el commit de los cambios
-                ePortafolioDAO.SubmitChanges();
+
+                BEArchivo Archivo = new BEArchivo
+                    {
+                        FechaSubido = DateTime.Now,
+                        Nombre = FileNameOnDisk,
+                        Ruta = CompleteFileVirtualPathOnDisk,
+                        Alumno = Alumno
+                    };
+
+                RepositoryFactory.GetArchivoRepository().AddArchivo(Grupo.GrupoId, Archivo);
+
+                List<BEAlumno> AlumnosGrupo = RepositoryFactory.GetAlumnoRepository().GetAlumnosGrupo(Grupo.GrupoId);
+
+                foreach (BEAlumno AlumnoGrupo in AlumnosGrupo)
+                {
+                    String Mensaje = "Estimado #NOMBRE, </br>" +
+                                     "Se ha agregado el archivo <b>#ARCHIVO</b> al trabajo <b>#TRABAJO</b> del curso <b>#CURSO</b>";
+                    Mensaje = Mensaje.Replace("#NOMBRE", AlumnoGrupo.Nombre);
+                    Mensaje = Mensaje.Replace("#ARCHIVO", FileNameOnDisk);
+                    Mensaje = Mensaje.Replace("#TRABAJO", Trabajo.Nombre);
+                    Mensaje = Mensaje.Replace("#CURSO", Curso.Nombre);
+
+                    EmailHelper.SendMail(AlumnoGrupo.CorreoElectronico, "ePSE - Archivo agregado", Mensaje);
+                }
             }
+
             //Redirecciona a la accion Details de Student con el ID del Trabajo
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("Details", new { TrabajoId = TrabajoId });
         }
 
         //
         // GET: /Student/GroupCreate/5
         // Crea un grupo para el trabajo seleccionado
         // Redirige a la accion de Details
-        public ActionResult GroupCreate(int id)
+        public ActionResult GroupCreate(int TrabajoId)
         {
-            var TrabajoId = id;
-            //Obtiene el ID del estudiante registrado
-            var EstudianteId = ((UserInfo)Session["UserInfo"]).Codigo;
+            BEAlumno Alumno = ((BEAlumno)Session["ActualAlumno"]);
 
-            var Trabajo = ePortafolioDAO.Trabajos.SingleOrDefault(t => t.TrabajoId == TrabajoId);
-            var GrupoInsertar = new Grupo() { TrabajoId = TrabajoId };
-            GrupoInsertar.AlumnosGrupos.Add(new AlumnosGrupo { AlumnoId = EstudianteId, EsLider = true });
-            Trabajo.Grupos.Add(GrupoInsertar);
-            ePortafolioDAO.SubmitChanges();
-            //Redirecciona a la accion Details de Student con el ID del Trabajo
-            return RedirectToAction("Details", new { id = TrabajoId });
+            RepositoryFactory.GetGrupoRepository().CreateGrupo(TrabajoId, Alumno.AlumnoId);
+
+            return RedirectToAction("Details", new { TrabajoId = TrabajoId });
         }
 
         //
         // GET: /Student/DeleteStudent/
         // Elimina un estudiante del grupo
         // Redirige a la accion de Details
-        public ActionResult DeleteStudent(String GrupoId, String TrabajoId, String AlumnoId)
+        public ActionResult DeleteStudent(int TrabajoId, int GrupoId, String AlumnoId)
         {
-            var Student = ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.AlumnoId.ToString() == AlumnoId && ag.GrupoId.ToString() == GrupoId);
-            ePortafolioDAO.AlumnosGrupos.DeleteOnSubmit(Student);
-            ePortafolioDAO.SubmitChanges();
-            //Redirecciona a la accion Details de Student con el ID del Trabajo
-            return RedirectToAction("Details", new { id = TrabajoId });
+            RepositoryFactory.GetGrupoRepository().DeleteAlumnoGrupo(GrupoId, AlumnoId);
+
+            return RedirectToAction("Details", new { TrabajoId = TrabajoId });
         }
 
         //
         // GET: /Student/MakeLeader/
         // Delega el lider a un estudiante del grupo
         // Redirige a la accion de Details
-        public ActionResult MakeLeader(String GrupoId, String AlumnoId, String TrabajoId)
+        public ActionResult MakeLeader(int GrupoId, String AlumnoId, int TrabajoId)
         {
-            ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.GrupoId.ToString() == GrupoId && ag.EsLider == true).EsLider = false;
-            ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.GrupoId.ToString() == GrupoId && ag.AlumnoId.ToString() == AlumnoId).EsLider = true;
-            ePortafolioDAO.SubmitChanges();
+            RepositoryFactory.GetGrupoRepository().SetLiderGrupo(GrupoId, AlumnoId);
+
             //Redirecciona a la accion Details de Student con el ID del Trabajo
-            return RedirectToAction("Details", new { id = TrabajoId });
+            return RedirectToAction("Details", new { TrabajoId = TrabajoId });
         }
 
         //
         // GET: /Student/WithdrawStudent/
         // Retira al alumno del curso
         // Redirige a la accion de Index
-        public ActionResult WithdrawStudent(String GrupoId, String AlumnoId)
+        public ActionResult WithdrawStudent(int GrupoId, String AlumnoId)
         {
-            ePortafolioDAO.AlumnosGrupos.DeleteOnSubmit(ePortafolioDAO.AlumnosGrupos.SingleOrDefault(ag => ag.GrupoId.ToString() == GrupoId && ag.AlumnoId.ToString() == AlumnoId));
-            ePortafolioDAO.SubmitChanges();
+            RepositoryFactory.GetGrupoRepository().DeleteAlumnoGrupo(GrupoId, AlumnoId);
 
+            //Redirecciona a la accion Index de Student
             return RedirectToAction("Index");
 
         }
@@ -207,22 +243,68 @@ namespace ePortafolioMVC.Controllers
         // GET: /Student/DeleteGroup/
         // Elimina el grupo de trabajo
         // Redirige a la accion de Index
-        public ActionResult DeleteGroup(String GrupoId)
+        public ActionResult DeleteGroup(int GrupoId)
         {
             //
             // TODO: Eliminar los archivos del disco y depurar la tabla de Archivos Eliminados
             //
-
-            ePortafolioDAO.Archivos.DeleteAllOnSubmit(ePortafolioDAO.Archivos.Where(a => ePortafolioDAO.ArchivosGrupos.Any(ag => ag.GrupoId.ToString() == GrupoId && ag.ArchivoId==a.ArchivoId)));
-            ePortafolioDAO.ArchivosGrupos.DeleteAllOnSubmit(ePortafolioDAO.ArchivosGrupos.Where(ag => ag.GrupoId.ToString() == GrupoId));
-            ePortafolioDAO.AlumnosGrupos.DeleteAllOnSubmit(ePortafolioDAO.AlumnosGrupos.Where(ag => ag.GrupoId.ToString() == GrupoId));
-            ePortafolioDAO.Grupos.DeleteOnSubmit(ePortafolioDAO.Grupos.SingleOrDefault(g => g.GrupoId.ToString() == GrupoId));
-            ePortafolioDAO.SubmitChanges();
+            RepositoryFactory.GetArchivoRepository().DeleteArchivosGrupo(GrupoId);
+            RepositoryFactory.GetGrupoRepository().DeleteAlumnosGrupo(GrupoId);
+            RepositoryFactory.GetGrupoRepository().DeleteGrupo(GrupoId);
 
             return RedirectToAction("Index");
         }
 
+        public ActionResult DeleteFile(int TrabajoId, int ArchivoId)
+        {
+            //
+            // TODO: Eliminar los archivos del disco
+            //
 
+            BEArchivo Archivo = RepositoryFactory.GetArchivoRepository().GetArchivo(ArchivoId);
+
+            RepositoryFactory.GetArchivoRepository().DeleteArchivo(ArchivoId);
+
+            return RedirectToAction("Details", new { TrabajoId = TrabajoId });
+        }
+
+        public ActionResult History()
+        {
+            BEAlumno Alumno = ((BEAlumno)Session["ActualAlumno"]);
+
+            StudentHistoryViewModel StudentHistoryViewModel = new StudentHistoryViewModel();
+
+            List<BEPeriodo> Periodos = new List<BEPeriodo>();
+            List<BECurso> Cursos = new List<BECurso>();
+            List<BEGrupo> Grupos = new List<BEGrupo>();
+
+            List<BETrabajo> Trabajos = RepositoryFactory.GetTrabajoRepository().GetTrabajosHistoricoAlumno(Alumno.AlumnoId);
+            Dictionary<BEGrupo, List<BEAlumno>> AlumnosGrupo = new Dictionary<BEGrupo, List<BEAlumno>>();
+
+            foreach (BETrabajo Trabajo in Trabajos)
+            {
+                if (!Periodos.Any(p => p.PeriodoId == Trabajo.Periodo.PeriodoId))
+                    Periodos.Add(RepositoryFactory.GetPeriodoRepository().GetGetPeriodoNoFK(Trabajo.Periodo.PeriodoId));
+                if (!Cursos.Any(c => c.CursoId == Trabajo.Curso.CursoId))
+                    Cursos.Add(RepositoryFactory.GetCursoRepository().GetCursoNoFK(Trabajo.Curso.CursoId, Trabajo.Periodo.PeriodoId));
+                if (!Grupos.Any(g => g.Trabajo.TrabajoId == Trabajo.TrabajoId))
+                    Grupos.Add(RepositoryFactory.GetGrupoRepository().GetGrupoAlumno(Trabajo.TrabajoId, Alumno.AlumnoId));
+            }
+
+            foreach (BEGrupo Grupo in Grupos)
+            {
+                AlumnosGrupo.Add(Grupo, RepositoryFactory.GetAlumnoRepository().GetAlumnosGrupo(Grupo.GrupoId));
+            }
+
+            StudentHistoryViewModel.ActualAlumno = Alumno;
+            StudentHistoryViewModel.Periodos = Periodos.OrderByDescending(x => x.PeriodoId).ToList();
+            StudentHistoryViewModel.Cursos = Cursos.OrderBy(x => x.Codigo).ToList();
+            StudentHistoryViewModel.Trabajos = Trabajos.OrderBy(x => x.Nombre).ToList(); ;
+            StudentHistoryViewModel.Grupos = Grupos;
+            StudentHistoryViewModel.AlumnosGrupo = AlumnosGrupo;
+
+            return View(StudentHistoryViewModel);
+        }
 
     }
 }

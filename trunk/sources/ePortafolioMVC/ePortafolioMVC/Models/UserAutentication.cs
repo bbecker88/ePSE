@@ -5,6 +5,7 @@ using System.Web;
 
 namespace ePortafolioMVC.Models
 {
+
     public class UserAutentication
     {
         public String User { get; set; }

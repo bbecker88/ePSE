@@ -1,0 +1,157 @@
+div.datepicker {
+	position: relative;
+	font-size: 12px;
+	width: 198px!important;
+	height: 196px!important;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.datepickerContainer {
+	background: #dfe1e3;
+	position: absolute;
+}
+
+.datepickerHidden {
+	display: none;
+}
+.datepickerDoW{
+
+}
+.datepickerDoW th{
+	text-align:center!important;
+	font-size:11px;
+}
+.datepickerDoW span{
+	color:#333!important;
+	}
+div.datepicker table {
+	border-collapse:collapse;
+}
+div.datepicker a {
+	color: #444a50;
+	text-decoration: none;
+	cursor: default;
+	outline: none;
+}
+div.datepicker a:hover {
+	text-decoration:none;
+}
+div.datepicker table td {
+	text-align: right;
+	padding: 0;
+	margin: 0;
+	border:1px solid #bdc2c5;
+}
+div.datepicker th {
+	text-align: center;
+	color: #999;
+	font-weight: bold;
+}
+div.datepicker thead {
+	background-color:#ededed;
+}
+div.datepicker tbody {
+	background-color:#dfe1e3;
+	border:0.5px solid #bdc2c5;
+}
+div.datepicker tbody th {
+	text-align: left;
+	
+}
+div.datepicker tbody a {
+	display: block;
+
+}
+.datepickerDays a {
+	width: 27px;
+	line-height: 24px;
+	height: 24px;
+	text-align:center;
+	font-weight:bold;
+	font-size:9px;
+}
+.datepickerYears a,
+.datepickerMonths a{
+	width: 48px;
+	line-height: 50px;
+	height: 53px;
+	text-align: center;
+}
+td.datepickerNotInMonth a {
+	color: #b1b3b5;
+}
+tbody.datepickerDays td.datepickerSelected{
+	background: #94c912;
+}
+tbody.datepickerDays td.datepickerSelected a{
+	color:#444a50;
+}
+tbody.datepickerDays td.datepickerNotInMonth.datepickerSelected {
+	background: #bdc2c5;
+}
+tbody.datepickerDays td.datepickerNotInMonth.datepickerSelected a{
+	color:#F1F1F1;
+}
+tbody.datepickerYears td.datepickerSelected,
+tbody.datepickerMonths td.datepickerSelected{
+	background: #17384d;
+}
+div.datepicker a:hover,
+div.datepicker a:hover {
+	border-bottom:0px;
+	
+}
+div.datepicker td.datepickerNotInMonth a:hover {
+	color: #F1F1F1;
+}
+div.datepicker tbody th {
+	text-align: left;
+}
+.datepickerSpace div {
+	width: 20px;
+}
+.datepickerGoNext a,
+.datepickerGoPrev a,
+.datepickerMonth a {
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	font-size:14px;
+ 	font-weight:bold;
+}
+.datepickerGoNext a {
+	float: right;
+	width: 20px;
+}
+.datepickerGoPrev a {
+	float: left;
+	width: 20px;
+}
+table.datepickerViewDays tbody.datepickerMonths,
+table.datepickerViewDays tbody.datepickerYears {
+	display: none;
+}
+table.datepickerViewMonths tbody.datepickerDays,
+table.datepickerViewMonths tbody.datepickerYears,
+table.datepickerViewMonths tr.datepickerDoW {
+	display: none;
+}
+table.datepickerViewYears tbody.datepickerDays,
+table.datepickerViewYears tbody.datepickerMonths,
+table.datepickerViewYears tr.datepickerDoW {
+	display: none;
+}
+td.datepickerDisabled a,
+td.datepickerDisabled.datepickerNotInMonth a{
+	color: #333;
+}
+td.datepickerDisabled a:hover {
+	color: #333;
+}
+td.datepickerSpecial a {
+	background: #700;
+}
+td.datepickerSpecial.datepickerSelected a {
+	background: #a00;
+}

@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" ValidateRequest="false" MasterPageFile="~/Views/Shared/Site.Master"
-    Inherits="System.Web.Mvc.ViewPage<ePortafolioMVC.ViewModels.TrabajoViewModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<ePortafolioMVC.Models.Entities.BETrabajo>" %>
 
 <%@ Import Namespace="ePortafolioMVC.Helpers" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -26,24 +25,35 @@
 
     <script type="text/javascript" src="http://yui.yahooapis.com/2.8.1/build/editor/editor-min.js"></script>
 
-    <script src="../../Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+        
+    <script src="<%=Url.Content("~/Scripts/jquery-ui/js/jquery-ui-1.8.6.custom.js")%>" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Scripts/jquery-ui/js/jquery.ui.datepicker-es.js")%>" type="text/javascript"></script>
+    <link href="<%=Url.Content("~/Scripts/jquery-ui/css/blitzer/jquery-ui-1.8.6.custom.css")%>" rel="stylesheet" type="text/css" />
+
 
     <script type="text/javascript">
+        dateFormatStringDefault: 'mm/dd/yy'
+        $(function() {
+        $("#FechaInicio").datepicker($.datepicker.regional["es"]);
+        $("#FechaFin").datepicker($.datepicker.regional["es"]);
+        });
+
 
         $('document').ready(function() {
+
             var Dom = YAHOO.util.Dom,
         Event = YAHOO.util.Event;
 
             var myConfig = {
                 height: '300px',
-                width: '550px',
+                width: '555px',
                 animate: true,
                 dompath: true,
                 focusAtStart: true,
                 autoHeight: true
             };
 
-            var myEditor = new YAHOO.widget.Editor('trabajo.Instrucciones', myConfig);
+            var myEditor = new YAHOO.widget.Editor('Instrucciones', myConfig);
             myEditor.render();
 
             var submitButton = $('#submitButton');
@@ -54,53 +64,45 @@
         });
     </script>
 
-    <h2>
-        Editar</h2>
+    <h3 style="text-align: center">
+        <%= Html.Encode(Model.Curso.Codigo + " " + Model.Curso.Nombre)%></h3>
+    <h2 style="text-align: center">
+        <%= Html.Encode(Model.Nombre)%></h2>
+    <h3 style="text-align: center">
+        <%= Html.Encode("Editar trabajo") %></h4>
     <% using (Html.BeginBorder())
        {%>
     <% using (Html.BeginForm())
        {%>
-    <%= Html.ValidationSummary(true) %>
-        <div class="editor-label">
-            <%= Html.LabelFor(model => model.trabajo.Nombre)%>
-        </div>
-        <div class="editor-field">
-            <%= Html.TextBoxFor(model => model.trabajo.Nombre)%>
-            <%= Html.ValidationMessageFor(model => model.trabajo.Nombre)%>
-        </div>
-        <div class="editor-label">
-            <%= Html.LabelFor(model => model.trabajo.FechaInicio)%>
-        </div>
-        <div class="editor-field">
-            <%= Html.TextBoxFor(model => model.trabajo.FechaInicio)%>
-            <%= Html.ValidationMessageFor(model => model.trabajo.FechaInicio)%>
-        </div>
-        <div class="editor-label">
-            <%= Html.LabelFor(model => model.trabajo.FechaFin)%>
-        </div>
-        <div class="editor-field">
-            <%= Html.TextBoxFor(model => model.trabajo.FechaFin)%>
-            <%= Html.ValidationMessageFor(model => model.trabajo.FechaFin)%>
-        </div>
-        <div class="editor-label">
-            <%= Html.LabelFor(model => model.trabajo.EsGrupal)%>
-        </div>
-        <div class="editor-field">
-            <% foreach (var option in Model.EsGrupal)
-               { %>
-            <%=Html.RadioButton("EsGrupal", option.Value.ToString(),option.Selected)%><img src="<%=Url.Content("~/Content/images/")%><%=option.Text %>" />
-            <% } %>
-            <%= Html.ValidationMessageFor(model => model.trabajo.EsGrupal)%>
-        </div>
+       
+       <table class="table">
+       <tr>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Modo</th>
+       </tr>
+       <tr>
+        <td><%= Html.TextBox("FechaInicio",Model.FechaInicio.HasValue?Model.FechaInicio.Value.ToShortDateString():"")%></td>
+        <td><%= Html.TextBox("FechaFin", Model.FechaFin.HasValue ? Model.FechaFin.Value.ToShortDateString() : "")%></td>
+        <td>
+        <%=Html.RadioButton("EsGrupal", true,Model.EsGrupal)%><img title="Grupal" src="<%=Url.Content("~/Content/images/imgGrupal.png")%>" />
+        <%=Html.RadioButton("EsGrupal", false,!Model.EsGrupal)%><img title="Individual" src="<%=Url.Content("~/Content/images/imgIndividual.png")%>" />
+        </td>
+       </tr>
+       
+       
+       </table>
+       
+<br />
         <span class="yui-skin-sam">
-            <textarea id="trabajo.Instrucciones" name="trabajo.Instrucciones" rows="20" cols="75"> 
-            <%= Html.Encode(Model.trabajo.Instrucciones) %>
+            <textarea id="Instrucciones" name="Instrucciones" rows="20" cols="75"> 
+            <%= Html.Encode(Model.Instrucciones) %>
             </textarea>
         </span>
         <br />
         <p>
             <input type="submit" class="button" id="submitButton" value="Save"/>
-            <br />
+           
         </p>
     <% } %>
     <% } %>
