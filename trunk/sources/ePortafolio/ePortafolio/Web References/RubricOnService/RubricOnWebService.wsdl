@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetRutaEvaluarRubrica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Param" type="tns:EvaluarRubricaParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EvaluarRubricaParam">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RubricaId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoArtefacto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEvaluado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoEvaluador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParametroResultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParametroCodigoEvaluacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RutaRetorno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RutaCancelado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoEvaluacionPlantilla" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetRutaEvaluarRubricaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRutaEvaluarRubricaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRutaVerRubrica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Param" type="tns:VerRubricaParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="VerRubricaParam">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RubricaId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoArtefacto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RutaRetorno" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetRutaVerRubricaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRutaVerRubricaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRutaVerRubricaEvaluada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Param" type="tns:VerRubricaEvaluadaParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="VerRubricaEvaluadaParam">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EvaluacionId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RutaRetorno" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetRutaVerRubricaEvaluadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRutaVerRubricaEvaluadaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetRutaEvaluarRubricaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRutaEvaluarRubrica" />
+  </wsdl:message>
+  <wsdl:message name="GetRutaEvaluarRubricaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRutaEvaluarRubricaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRutaVerRubricaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRutaVerRubrica" />
+  </wsdl:message>
+  <wsdl:message name="GetRutaVerRubricaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRutaVerRubricaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRutaVerRubricaEvaluadaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRutaVerRubricaEvaluada" />
+  </wsdl:message>
+  <wsdl:message name="GetRutaVerRubricaEvaluadaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRutaVerRubricaEvaluadaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RubricOnWebServiceSoap">
+    <wsdl:operation name="GetRutaEvaluarRubrica">
+      <wsdl:input message="tns:GetRutaEvaluarRubricaSoapIn" />
+      <wsdl:output message="tns:GetRutaEvaluarRubricaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRutaVerRubrica">
+      <wsdl:input message="tns:GetRutaVerRubricaSoapIn" />
+      <wsdl:output message="tns:GetRutaVerRubricaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRutaVerRubricaEvaluada">
+      <wsdl:input message="tns:GetRutaVerRubricaEvaluadaSoapIn" />
+      <wsdl:output message="tns:GetRutaVerRubricaEvaluadaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RubricOnWebServiceSoap" type="tns:RubricOnWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetRutaEvaluarRubrica">
+      <soap:operation soapAction="http://tempuri.org/GetRutaEvaluarRubrica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRutaVerRubrica">
+      <soap:operation soapAction="http://tempuri.org/GetRutaVerRubrica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRutaVerRubricaEvaluada">
+      <soap:operation soapAction="http://tempuri.org/GetRutaVerRubricaEvaluada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RubricOnWebServiceSoap12" type="tns:RubricOnWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetRutaEvaluarRubrica">
+      <soap12:operation soapAction="http://tempuri.org/GetRutaEvaluarRubrica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRutaVerRubrica">
+      <soap12:operation soapAction="http://tempuri.org/GetRutaVerRubrica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRutaVerRubricaEvaluada">
+      <soap12:operation soapAction="http://tempuri.org/GetRutaVerRubricaEvaluada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RubricOnWebService">
+    <wsdl:port name="RubricOnWebServiceSoap" binding="tns:RubricOnWebServiceSoap">
+      <soap:address location="http://localhost/RubricOn/Services/RubricOnWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RubricOnWebServiceSoap12" binding="tns:RubricOnWebServiceSoap12">
+      <soap12:address location="http://localhost/RubricOn/Services/RubricOnWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

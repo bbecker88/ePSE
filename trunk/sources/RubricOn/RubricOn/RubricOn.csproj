@@ -1,0 +1,364 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EB352FD5-A952-46AF-BD67-B6A4B1529596}</ProjectGuid>
+    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RubricOn</RootNamespace>
+    <AssemblyName>RubricOn</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 2\\Assemblies\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ExposeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RubricaController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\AjaxHelpers.cs" />
+    <Compile Include="Helpers\CastHelper.cs" />
+    <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\IntegerHelpers.cs" />
+    <Compile Include="Helpers\SessionHelpers.cs" />
+    <Compile Include="Logic\Encryption64.cs" />
+    <Compile Include="Logic\ValidationLogic.cs" />
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\DataContextFactory.cs" />
+    <Compile Include="Models\RubricOn\Entities\OutcomesBE.cs" />
+    <Compile Include="Models\RubricOn\Repository\OutcomesRepository.cs" />
+    <Compile Include="Models\RubricOn\RubricOn.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RubricOn.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RubricOn\RubricOnRepositoryFactory.cs" />
+    <Compile Include="Models\RubricOn\_Entities\AspectosRubricaBE.cs" />
+    <Compile Include="Models\RubricOn\_Entities\CategoriasRubricasBE.cs" />
+    <Compile Include="Models\RubricOn\_Entities\CriterioRubricaBE.cs" />
+    <Compile Include="Models\RubricOn\_Entities\EvaluacionesBE.cs" />
+    <Compile Include="Models\RubricOn\_Entities\RespuestasRubricaBE.cs" />
+    <Compile Include="Models\RubricOn\_Entities\ResultadosRubricasBE.cs" />
+    <Compile Include="Models\RubricOn\_Entities\RubricasBE.cs" />
+    <Compile Include="Models\RubricOn\_Entities\TiposArtefactoBE.cs" />
+    <Compile Include="Models\RubricOn\_Entities\VersionesRubricasBE.cs" />
+    <Compile Include="Models\RubricOn\_Repository\AspectosRubricaRepository.cs" />
+    <Compile Include="Models\RubricOn\_Repository\CategoriasRubricasRepository.cs" />
+    <Compile Include="Models\RubricOn\_Repository\CriterioRubricaRepository.cs" />
+    <Compile Include="Models\RubricOn\_Repository\EvaluacionesRepository.cs" />
+    <Compile Include="Models\RubricOn\_Repository\RespuestasRubricaRepository.cs" />
+    <Compile Include="Models\RubricOn\_Repository\ResultadosRubricasRepository.cs" />
+    <Compile Include="Models\RubricOn\Entities\VersionesRubricasBE.cs" />
+    <Compile Include="Models\RubricOn\_Repository\RubricasRepository.cs" />
+    <Compile Include="Models\RubricOn\_Repository\TiposArtefactoRepository.cs" />
+    <Compile Include="Models\RubricOn\_Repository\VersionesRubricasRepository.cs" />
+    <Compile Include="Models\TempMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\RubricOnWebService.asmx.cs">
+      <DependentUpon>RubricOnWebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ViewModel\EvaluarRubricaExposeViewModel.cs" />
+    <Compile Include="ViewModel\VerRubricaExposeViewModel.cs" />
+    <Compile Include="ViewModel\ListarEvaluacionesFiltradasViewModel.cs" />
+    <Compile Include="ViewModel\ListarEvaluacionesViewModel.cs" />
+    <Compile Include="ViewModel\EvaluarRubricaViewModel.cs" />
+    <Compile Include="ViewModel\VerRubricaViewModel.cs" />
+    <Compile Include="ViewModel\CrearVersionRubricaViewModel.cs" />
+    <Compile Include="ViewModel\DisenarRubricaViewModel.cs" />
+    <Compile Include="ViewModel\ListarVersionesRubricaViewModel.cs" />
+    <Compile Include="ViewModel\ListarRubricasViewModel.cs" />
+    <Compile Include="ViewModel\ListarRubricasArtefactoViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\ui-lightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\ui-lightness\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\ui-lightness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\ui-lightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\ui-lightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\ui-lightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\ui-lightness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\ui-lightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\ui-lightness\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\ui-lightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\ui-lightness\jquery-ui-1.8.12.custom.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery-dynamic-form.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery-ui-i18n.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-af.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ar-DZ.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ar.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-az.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-bg.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-bs.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ca.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-cs.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-da.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-de.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-el.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-en-AU.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-en-GB.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-en-NZ.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-eo.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-es.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-et.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-eu.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-fa.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-fi.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-fo.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-fr-CH.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-fr.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-gl.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-he.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-hr.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-hu.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-hy.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-id.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-is.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-it.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ja.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ko.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-kz.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-lt.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-lv.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ml.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ms.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-nl.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-no.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-pl.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-pt-BR.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-pt.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-rm.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ro.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ru.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-sk.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-sl.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-sq.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-sr-SR.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-sr.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-sv.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-ta.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-th.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-tj.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-tr.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-uk.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-vi.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-zh-CN.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-zh-HK.js" />
+    <Content Include="Scripts\jquery-ui\i18n\jquery.ui.datepicker-zh-TW.js" />
+    <Content Include="Scripts\jquery-ui\jquery-ui-1.8.12.custom.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.blind.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.bounce.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.clip.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.core.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.drop.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.explode.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.fade.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.fold.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.highlight.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.pulsate.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.scale.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.shake.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.slide.js" />
+    <Content Include="Scripts\jquery-ui\jquery.effects.transfer.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.accordion.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.autocomplete.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.button.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.core.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.datepicker.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.dialog.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.draggable.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.droppable.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.mouse.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.position.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.progressbar.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.resizable.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.selectable.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.slider.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.sortable.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.tabs.js" />
+    <Content Include="Scripts\jquery-ui\jquery.ui.widget.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.blind.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.bounce.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.clip.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.core.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.drop.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.explode.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.fade.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.fold.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.highlight.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.pulsate.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.scale.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.shake.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.slide.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.effects.transfer.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.accordion.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.autocomplete.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.button.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.core.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.datepicker.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.dialog.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.draggable.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.droppable.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.mouse.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.position.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.progressbar.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.resizable.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.selectable.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.slider.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.sortable.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.tabs.min.js" />
+    <Content Include="Scripts\jquery-ui\minified\jquery.ui.widget.min.js" />
+    <Content Include="Views\Expose\EvaluarRubrica.aspx" />
+    <Content Include="Views\Expose\Mensaje.aspx" />
+    <Content Include="Views\Expose\VerRubrica.aspx" />
+    <Content Include="Views\Rubrica\CrearVersionRubrica.aspx" />
+    <Content Include="Views\Rubrica\DisenarVersionRubrica.aspx" />
+    <Content Include="Views\Rubrica\EvaluarRubrica.aspx" />
+    <Content Include="Views\Rubrica\InicioEvaluacionRubrica.aspx" />
+    <Content Include="Views\Rubrica\ListarEvaluaciones.aspx" />
+    <Content Include="Views\Rubrica\ListarEvaluacionesFiltradas.ascx" />
+    <Content Include="Views\Rubrica\ListarRubricas.aspx" />
+    <Content Include="Views\Rubrica\ListarRubricasArtefacto.ascx" />
+    <Content Include="Views\Rubrica\ListarVersionesRubrica.aspx" />
+    <Content Include="Views\Rubrica\VerVersionRubrica.aspx" />
+    <Content Include="Views\Shared\EmptyPartial.ascx" />
+    <Content Include="Views\Shared\Mensaje.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.min-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.min-vsdoc.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Views\Shared\Error.aspx" />
+    <Content Include="Views\Shared\Site.Master" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\RubricOn\RubricOn.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>RubricOn.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\RubricOn\RubricOn.dbml.layout">
+      <DependentUpon>RubricOn.dbml</DependentUpon>
+    </None>
+    <Content Include="Scripts\cleditor\images\buttons.gif" />
+    <Content Include="Scripts\cleditor\images\toolbar.gif" />
+    <Content Include="Scripts\cleditor\jquery.cleditor.css" />
+    <Content Include="Scripts\cleditor\jquery.cleditor.js" />
+    <Content Include="Scripts\cleditor\jquery.cleditor.min.js" />
+    <Content Include="Services\RubricOnWebService.asmx" />
+    <Content Include="Views\Rubrica\DisenarVersionSegundaRubrica.aspx" />
+    <Content Include="Views\Shared\ExposeSite.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56416</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

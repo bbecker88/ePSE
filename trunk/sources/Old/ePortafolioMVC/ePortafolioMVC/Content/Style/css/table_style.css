@@ -1,0 +1,81 @@
+/* CSS Document */
+
+.curso {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	padding:10px;
+	}
+.curso:hover {
+	background-color:#F6F6F6;
+	}
+	
+.curso h1{
+	font-size:12px;
+	color:#272727;
+	}
+.curso table{
+	width:540px;
+	background-color:#f2f2f2;
+	}
+
+.curso table th{
+	padding:4px;
+	padding-left:10px;
+	padding-right:10px;
+	text-transform:uppercase;
+	background-color:#444a50;
+	font-size:12px;
+	color:#e1e1e1;
+	text-align:center;
+}
+.curso table td{
+	
+	text-align:center;
+}
+.curso table tr{
+	height:28px;
+	}
+.curso table thead tr{
+	height:20px;
+	}
+		
+.curso tr:hover{
+	background-color:#FF6;
+	}
+
+.curso .gray {
+	background-color:#e2e2e2;
+	}
+
+.curso .rol, .curso .mod{
+	background-image:url(../images/unassigned.png);
+	width:24px;
+	height:24px;
+	display:block;
+	margin:5px;
+	margin-left:10px;
+	}
+.curso .mod{
+	background-image:url(../images/single-group.png);
+	margin-left:20px;
+}
+.rol h5, .mod h5{
+	display:none;
+	}
+	
+.curso .lider{
+	background-image:url(../images/leader.png);
+	}
+
+.curso .normal{
+	background-image:url(../images/single.png);
+	}
+
+.curso .grupal{
+	background-image:url(../images/group.png);
+	}
+	
+.curso a{
+	color:#911212;
+	font-size:11px;
+	}

@@ -1,0 +1,11 @@
+<publishData>
+  <publishTarget publishUrl="http://localhost/RubricOnServiceLibrary">
+    <file relUrl="bin/RubricOnServiceLibrary.pdb" publishTime="05/01/2011 21:51:23" />
+    <file relUrl="bin/RubricOnServiceLibrary.dll.config" publishTime="04/27/2011 11:54:57" />
+    <file relUrl="bin/RubricOn.dll" publishTime="05/01/2011 21:50:31" />
+    <file relUrl="bin/RubricOnServiceLibrary.dll" publishTime="05/01/2011 21:51:23" />
+    <file relUrl="bin/RubricOn.pdb" publishTime="05/01/2011 21:50:31" />
+    <file relUrl="RubricOnServiceLibrary.RubricOnService.svc" publishTime="05/01/2011 21:51:24" />
+    <file relUrl="Web.config" publishTime="04/27/2011 11:54:57" />
+  </publishTarget>
+</publishData>

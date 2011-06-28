@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="ePortafolio" Class="ePortafolioDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost;Initial Catalog=ePortafolio;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ePortafolioConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="EPSE.AlumnosGrupo" Member="AlumnosGrupo">
+    <Type Name="AlumnosGrupo">
+      <Column Name="AlumnoId" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GrupoId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nota" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EvaluacionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Grupos_AlumnosGrupo" Member="Grupos" ThisKey="GrupoId" OtherKey="GrupoId" Type="Grupos" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.TrabajosOutcomeAlumno" Member="TrabajosOutcomeAlumno">
+    <Type Name="TrabajosOutcomeAlumno">
+      <Column Name="OutcomeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AlumnoId" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TrabajoId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Trabajos_TrabajosOutcomeAlumno" Member="Trabajos" ThisKey="TrabajoId" OtherKey="TrabajoId" Type="Trabajos" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.Archivos" Member="Archivos">
+    <Type Name="Archivos">
+      <Column Name="ArchivoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Ruta" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="AlumnoId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FechaSubida" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Archivos_ArchivosGrupo" Member="ArchivosGrupo" ThisKey="ArchivoId" OtherKey="ArchivoId" Type="ArchivosGrupo" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.ArchivosGrupo" Member="ArchivosGrupo">
+    <Type Name="ArchivosGrupo">
+      <Column Name="ArchivoId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GrupoId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Archivos_ArchivosGrupo" Member="Archivos" ThisKey="ArchivoId" OtherKey="ArchivoId" Type="Archivos" IsForeignKey="true" />
+      <Association Name="Grupos_ArchivosGrupo" Member="Grupos" ThisKey="GrupoId" OtherKey="GrupoId" Type="Grupos" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.EvaluacionesGruposProfesor" Member="EvaluacionesGruposProfesor">
+    <Type Name="EvaluacionesGruposProfesor">
+      <Column Name="ProfesorId" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GrupoId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Grupos_EvaluacionesGruposProfesor" Member="Grupos" ThisKey="GrupoId" OtherKey="GrupoId" Type="Grupos" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.EvaluacionesOutcomeProfesor" Member="EvaluacionesOutcomeProfesor">
+    <Type Name="EvaluacionesOutcomeProfesor">
+      <Column Name="ProfesorId" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PeriodoId" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OutcomeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AlumnoId" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nota" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EvaluacionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.Grupos" Member="Grupos">
+    <Type Name="Grupos">
+      <Column Name="GrupoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TrabajoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nota" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SeccionId" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="LiderId" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="NombreTrabajo" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="EvaluacionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Grupos_AlumnosGrupo" Member="AlumnosGrupo" ThisKey="GrupoId" OtherKey="GrupoId" Type="AlumnosGrupo" />
+      <Association Name="Grupos_ArchivosGrupo" Member="ArchivosGrupo" ThisKey="GrupoId" OtherKey="GrupoId" Type="ArchivosGrupo" />
+      <Association Name="Grupos_EvaluacionesGruposProfesor" Member="EvaluacionesGruposProfesor" ThisKey="GrupoId" OtherKey="GrupoId" Type="EvaluacionesGruposProfesor" />
+      <Association Name="Trabajos_Grupos" Member="Trabajos" ThisKey="TrabajoId" OtherKey="TrabajoId" Type="Trabajos" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.Trabajos" Member="Trabajos">
+    <Type Name="Trabajos">
+      <Column Name="TrabajoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Codigo" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="CursoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PeriodoId" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="EsGrupal" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaInicio" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FechaFin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Iniciativa" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="Instrucciones" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Trabajos_TrabajosOutcomeAlumno" Member="TrabajosOutcomeAlumno" ThisKey="TrabajoId" OtherKey="TrabajoId" Type="TrabajosOutcomeAlumno" />
+      <Association Name="Trabajos_Grupos" Member="Grupos" ThisKey="TrabajoId" OtherKey="TrabajoId" Type="Grupos" />
+    </Type>
+  </Table>
+</Database>

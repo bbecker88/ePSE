@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="RubricOn" Class="RubricOnDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost;Initial Catalog=RubricOn;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RubricOnConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="RUBRICON.AspectosRubrica" Member="AspectosRubrica">
+    <Type Name="AspectosRubrica">
+      <Column Name="AspectoRubricaId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoriaRubricaId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AspectosRubrica_CriterioRubrica" Member="CriterioRubrica" ThisKey="AspectoRubricaId" OtherKey="AspectoRubricaId" Type="CriterioRubrica" />
+      <Association Name="CategoriasRubricas_AspectosRubrica" Member="CategoriasRubricas" ThisKey="CategoriaRubricaId" OtherKey="CategoriaRubricaId" Type="CategoriasRubricas" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="RUBRICON.VersionesRubricas" Member="VersionesRubricas">
+    <Type Name="VersionesRubricas">
+      <Column Name="TipoArtefacto" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RubricaId" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Version" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TipoRubrica" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="CreadorId" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="EsActual" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="VersionesRubricas_CategoriasRubricas" Member="CategoriasRubricas" ThisKey="TipoArtefacto,RubricaId,Version" OtherKey="TipoArtefacto,RubricaId,Version" Type="CategoriasRubricas" />
+      <Association Name="VersionesRubricas_Evaluaciones" Member="Evaluaciones" ThisKey="TipoArtefacto,RubricaId,Version" OtherKey="TipoArtefacto,RubricaId,Version" Type="Evaluaciones" />
+      <Association Name="Rubricas_VersionesRubricas" Member="Rubricas" ThisKey="RubricaId,TipoArtefacto" OtherKey="RubricaId,TipoArtefacto" Type="Rubricas" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="RUBRICON.CategoriasRubricas" Member="CategoriasRubricas">
+    <Type Name="CategoriasRubricas">
+      <Column Name="RubricaId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CategoriaRubricaId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TipoArtefacto" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OutcomeId" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Association Name="CategoriasRubricas_AspectosRubrica" Member="AspectosRubrica" ThisKey="CategoriaRubricaId" OtherKey="CategoriaRubricaId" Type="AspectosRubrica" />
+      <Association Name="VersionesRubricas_CategoriasRubricas" Member="VersionesRubricas" ThisKey="TipoArtefacto,RubricaId,Version" OtherKey="TipoArtefacto,RubricaId,Version" Type="VersionesRubricas" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="RUBRICON.CriterioRubrica" Member="CriterioRubrica">
+    <Type Name="CriterioRubrica">
+      <Column Name="CriterioRubricaId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AspectoRubricaId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Valor" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="CriterioRubrica_RespuestasRubrica" Member="RespuestasRubrica" ThisKey="CriterioRubricaId" OtherKey="CriterioRubricaId" Type="RespuestasRubrica" />
+      <Association Name="AspectosRubrica_CriterioRubrica" Member="AspectosRubrica" ThisKey="AspectoRubricaId" OtherKey="AspectoRubricaId" Type="AspectosRubrica" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="RUBRICON.Evaluaciones" Member="Evaluaciones">
+    <Type Name="Evaluaciones">
+      <Column Name="EvaluacionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CodigoEvaluadoId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CodigoEvaluadorId" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaEvaluacion" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RubricaId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TipoArtefacto" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Evaluaciones_RespuestasRubrica" Member="RespuestasRubrica" ThisKey="EvaluacionId" OtherKey="EvaluacionId" Type="RespuestasRubrica" />
+      <Association Name="Evaluaciones_ResultadosRubricas" Member="ResultadosRubricas" ThisKey="EvaluacionId" OtherKey="EvaluacionId" Type="ResultadosRubricas" Cardinality="One" />
+      <Association Name="VersionesRubricas_Evaluaciones" Member="VersionesRubricas" ThisKey="TipoArtefacto,RubricaId,Version" OtherKey="TipoArtefacto,RubricaId,Version" Type="VersionesRubricas" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="RUBRICON.RespuestasRubrica" Member="RespuestasRubrica">
+    <Type Name="RespuestasRubrica">
+      <Column Name="EvaluacionId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CriterioRubricaId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="CriterioRubrica_RespuestasRubrica" Member="CriterioRubrica" ThisKey="CriterioRubricaId" OtherKey="CriterioRubricaId" Type="CriterioRubrica" IsForeignKey="true" />
+      <Association Name="Evaluaciones_RespuestasRubrica" Member="Evaluaciones" ThisKey="EvaluacionId" OtherKey="EvaluacionId" Type="Evaluaciones" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="RUBRICON.ResultadosRubricas" Member="ResultadosRubricas">
+    <Type Name="ResultadosRubricas">
+      <Column Name="EvaluacionId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Resultado" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Evaluaciones_ResultadosRubricas" Member="Evaluaciones" ThisKey="EvaluacionId" OtherKey="EvaluacionId" Type="Evaluaciones" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="RUBRICON.Rubricas" Member="Rubricas">
+    <Type Name="Rubricas">
+      <Column Name="RubricaId" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TipoArtefacto" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Rubricas_VersionesRubricas" Member="VersionesRubricas" ThisKey="RubricaId,TipoArtefacto" OtherKey="RubricaId,TipoArtefacto" Type="VersionesRubricas" />
+      <Association Name="TiposArtefacto_Rubricas" Member="TiposArtefacto" ThisKey="TipoArtefacto" OtherKey="TipoArtefacto" Type="TiposArtefacto" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="RUBRICON.TiposArtefacto" Member="TiposArtefacto">
+    <Type Name="TiposArtefacto">
+      <Column Name="TipoArtefacto" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="TiposArtefacto_Rubricas" Member="Rubricas" ThisKey="TipoArtefacto" OtherKey="TipoArtefacto" Type="Rubricas" />
+    </Type>
+  </Table>
+</Database>

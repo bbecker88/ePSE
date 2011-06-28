@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="SSIA" Class="SSIADataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost;Initial Catalog=SSIA;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SSIAConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="EPSE.Alumnos" Member="Alumnos">
+    <Type Name="Alumnos">
+      <Column Name="AlumnoId" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(153)" CanBeNull="true" />
+      <Column Name="CorreoElectronico" Type="System.String" DbType="VarChar(23)" CanBeNull="true" />
+      <Column Name="NombreCarrera" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.SeccionesCurso" Member="SeccionesCurso">
+    <Type Name="SeccionesCurso">
+      <Column Name="PeriodoId" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="CursoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SeccionId" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="ProfesorId" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="NombreProfesor" Type="System.String" DbType="VarChar(153)" CanBeNull="true" />
+      <Column Name="NombreCurso" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CodigoCurso" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.AlumnosCurso" Member="AlumnosCurso">
+    <Type Name="AlumnosCurso">
+      <Column Name="PeriodoId" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="CursoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SeccionId" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="AlumnoId" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="NombreCurso" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CodigoCurso" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="NombreAlumno" Type="System.String" DbType="VarChar(153)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.Coordinadores" Member="Coordinadores">
+    <Type Name="Coordinadores">
+      <Column Name="CoordinadorId" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(37) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.Cursos" Member="Cursos">
+    <Type Name="Cursos">
+      <Column Name="CursoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Codigo" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.CursosPeriodos" Member="CursosPeriodos">
+    <Type Name="CursosPeriodos">
+      <Column Name="PeriodoId" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="CursoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CoordinadorId" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="NombreCoordinador" Type="System.String" DbType="VarChar(153) NOT NULL" CanBeNull="false" />
+      <Column Name="NombreCurso" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CodigoCurso" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.Outcomes" Member="Outcomes">
+    <Type Name="Outcomes">
+      <Column Name="OutcomeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Outcome" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(130) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.OutcomesAlumno" Member="OutcomesAlumno">
+    <Type Name="OutcomesAlumno">
+      <Column Name="AlumnoId" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(153)" CanBeNull="true" />
+      <Column Name="CorreoElectronico" Type="System.String" DbType="VarChar(23)" CanBeNull="true" />
+      <Column Name="OutcomeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NombreOutcome" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="DescripcionOutcome" Type="System.String" DbType="VarChar(130) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.Periodos" Member="Periodos">
+    <Type Name="Periodos">
+      <Column Name="PeriodoId" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="EsActual" Type="System.Boolean" DbType="Bit" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="EPSE.Profesores" Member="Profesores">
+    <Type Name="Profesores">
+      <Column Name="ProfesorId" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(153)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12, 10.25" name="SSIA">
+  <DataContextMoniker Name="/SSIADataContext" />
+  <nestedChildShapes>
+    <classShape Id="eccbba30-d4d2-4f4b-bbca-b8d353483745" absoluteBounds="0.75, 0.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/SSIADataContext/Alumnos" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cba5ed33-9079-49e0-a5b0-569f22693e17" absoluteBounds="0.765, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="275b4048-aed2-49d9-862d-b73642789162" absoluteBounds="3.75, 0.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/SSIADataContext/SeccionesCurso" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d1bcbfb5-9821-4b4e-98e1-2227b6ebe863" absoluteBounds="3.765, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e5568782-52e6-4e2f-8308-40e64706690a" absoluteBounds="0.75, 3.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/SSIADataContext/AlumnosCurso" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a89cc59e-32c6-464e-ab50-5ce6d80e0451" absoluteBounds="0.765, 4.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="aeb5e6b8-34f9-427a-92e1-2bda22bbae09" absoluteBounds="3.75, 3.75, 2, 1.193992513020834">
+      <DataClassMoniker Name="/SSIADataContext/Coordinadores" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ee324fee-8036-4d3e-9a8a-f04e3bcb5b2e" absoluteBounds="3.765, 4.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="88815262-6d6a-47f7-99e1-0337f53590b8" absoluteBounds="3.75, 5.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/SSIADataContext/Cursos" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cf47dc5a-87b1-4c54-8af1-5837dd6c2656" absoluteBounds="3.765, 6.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="42dced92-ac9f-4304-82a2-fe673ab26ec4" absoluteBounds="6.75, 0.75, 2, 1.9631982421875003">
+      <DataClassMoniker Name="/SSIADataContext/CursosPeriodos" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6e1ba612-9211-458a-96ae-783ce6e4bc6f" absoluteBounds="6.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1ab027b6-00c0-472a-85ff-3b82c1f705b3" absoluteBounds="6.75, 3.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/SSIADataContext/Outcomes" />
+      <nestedChildShapes>
+        <elementListCompartment Id="197f33c4-97fc-418c-944a-d5c82e68f598" absoluteBounds="6.765, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9d48370b-3ad0-470b-b784-3214688d634d" absoluteBounds="6.75, 6.75, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/SSIADataContext/OutcomesAlumno" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d4ad33a2-06dc-438f-9c22-4f4141e7eefc" absoluteBounds="6.765, 7.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ed0eaae0-73bb-4867-a6d6-38dc634e848d" absoluteBounds="0.75, 8.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/SSIADataContext/Periodos" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3c845775-2be3-4938-9a05-da01e4eb9ff1" absoluteBounds="0.765, 9.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d9c4e7d1-88b1-45ce-a8c8-76fcc437426b" absoluteBounds="9.75, 0.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/SSIADataContext/Profesores" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2956bc0c-9089-465c-b0fe-fcc8fd1a9768" absoluteBounds="9.765, 1.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

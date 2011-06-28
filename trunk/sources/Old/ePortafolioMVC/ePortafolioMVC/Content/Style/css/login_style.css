@@ -1,0 +1,35 @@
+/* CSS Document */
+#login {
+	width:280px;
+	margin-left:340px;
+	margin-top:140px;
+	margin-bottom:140px;
+	font-size:11px;
+	font-weight:bold;
+	}
+#login .detalles {
+
+	}
+#login .detalles .cursos{
+	width:274px;
+	min-height:140px;
+	}
+	
+#login .detalles .sombra-abajo{
+	background-image:url(../images/log_bottom.jpg);
+	}
+
+.box table tr{
+	height:34px;
+	}
+.box table td{
+	padding:4px;
+	}
+
+.box .user{
+	background-image:url(../images/user.png);
+	}
+	
+.box .pass{
+	background-image:url(../images/pass.png);
+	}

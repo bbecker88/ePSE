@@ -1,0 +1,12 @@
+Contingencia para rubricas.
+-Crear rubricas para cada curso del 1-20.
+
+Problema de rubrica recae en Eleazar.
+
+Pasar pedido para una persona que revise lo de QA. Mandar correo a Oscar Castillo.
+
+Lunes-> Jose para revision tecnica.
+
+Plan de trabajo cuando hacer analisis de crecimiento de base de datos.
+
+Enviar todo a Rosario
